@@ -32,6 +32,6 @@ namespace Car_Auction_Backend.Models
 
 		//Relationship between AuctionHistory 1 : 1
 		[JsonIgnore]
-		public virtual AuctionHistory AuctionHistory { get; set; }
+		public virtual AuctionHistory? AuctionHistory { get; set; }
 	}
 }
