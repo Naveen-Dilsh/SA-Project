@@ -67,22 +67,7 @@ namespace Car_Auction_Backend.Controllers
 			return bid;
 		}
 
-
-		// GET: api/Bid/with-cars
-		[HttpGet("with-cars")]
-		public async Task<ActionResult<IEnumerable<Bid>>> GetAllBidsWithCars()
-		{
-			var bidsWithCars = await _context.Bids
-				.Include(b => b.Car)  // Include Car details in the bid
-				.ToListAsync();
-
-			if (bidsWithCars == null || bidsWithCars.Count == 0)
-			{
-				return NotFound("No bids found.");
-			}
-
-			return Ok(bidsWithCars);
-		}
+		//---------------------------------------------------------Get car detailes by using Bid Id-------------------------------------------//
 
 		// GET: api/Bid/with-admin
 		[HttpGet("with-admin")]
@@ -115,29 +100,8 @@ namespace Car_Auction_Backend.Controllers
 			return bid.Car;
 		}
 
-		// GET: api/Bid/car-images
-		[HttpGet("car-images")]
-		public async Task<ActionResult<IEnumerable<string>>> GetAllCarImagesFromBids()
-		{
-			// Fetch bids with their associated cars
-			var bidsWithCars = await _context.Bids
-				.Include(b => b.Car)  // Include Car details in the bid
-				.ToListAsync();
 
-			// Select only the image URLs from the cars associated with the bids
-			var carImages = bidsWithCars
-				.Where(bid => bid.Car != null && !string.IsNullOrEmpty(bid.Car.ImageUrl)) // Ensure Car is not null and ImageUrl is valid
-				.Select(bid => bid.Car.ImageUrl) // Select the image URL
-				.Distinct() // Get distinct image URLs
-				.ToList();
-
-			if (carImages == null || carImages.Count == 0)
-			{
-				return NotFound("No car images found.");
-			}
-
-			return Ok(carImages);
-		}
+		//------------------------------------------------------------Get data for Latest Auction------------------------------------------------//
 
 		// GET: api/Bid/car-details
 		[HttpGet("car-details")]
@@ -153,6 +117,7 @@ namespace Car_Auction_Backend.Controllers
 				.Where(bid => bid.Car != null && !string.IsNullOrEmpty(bid.Car.ImageUrl)) // Ensure Car is not null and ImageUrl is valid
 				.Select(bid => new CarInfoDto
 				{
+					BidId = bid.BidId,
 					ImageUrl = bid.Car.ImageUrl,
 					Brand = bid.Car.Brand,
 					Model = bid.Car.Model
@@ -168,6 +133,39 @@ namespace Car_Auction_Backend.Controllers
 			return Ok(carDetails);
 		}
 
+		//--------------------------------------------------------------Get Images detailes for Bid data-------------------------------------------------------//
+
+		// GET: api/Bid/car-details/{bidId}
+		[HttpGet("Bid-details/{bidId}")]
+		public async Task<ActionResult<BidDto>> GetBidDetailsByBidId(int bidId)
+		{
+			// Fetch the bid with the given BidId and include the associated car
+			var bid = await _context.Bids
+				.Include(b => b.Car)  // Include Car details
+				.FirstOrDefaultAsync(b => b.BidId == bidId);
+
+			// If bid not found or no car associated with the bid, return NotFound
+			if (bid == null || bid.Car == null)
+			{
+				return NotFound("Bid or associated car not found.");
+			}
+
+			// Prepare the DTO with car details
+			var BidDetails = new BidDto
+			{
+				BidId = bid.BidId,
+				ImageUrl = bid.Car.ImageUrl,
+				Brand = bid.Car.Brand,
+				Model = bid.Car.Model,
+				Description = bid.Car.Description,
+				StartTime = bid.StartTime,
+				EndTime = bid.EndTime,
+				OpeningBid = bid.OpeningBid,
+			};
+
+			// Return the car details
+			return Ok(BidDetails);
+		}
 
 	}
 }

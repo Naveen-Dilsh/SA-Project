@@ -55,5 +55,44 @@ namespace Car_Auction_Backend.Controllers
 
 			return bid.User;
 		}
+
+
+		//----------------------------------------------------Check Highest value ----------------------------------------------------//
+
+		// GET: api/Bid/highest-bid/{bidId}
+		[HttpGet("highest-bid/{bidId}")]
+		public async Task<IActionResult> GetHighestBid(int bidId)
+		{
+			// Check if the bid exists
+			var bid = await _context.Bids.FindAsync(bidId);
+			if (bid == null)
+			{
+				return NotFound("Bid not found.");
+			}
+
+			// Check if there are any bids in the Bid_Sub table for the given bidId
+			var highestBidSub = await _context.Bid_subs
+				.Where(b => b.BidID == bidId)
+				.OrderByDescending(b => b.Amount)
+				.FirstOrDefaultAsync();
+
+			// If no bid_sub exists, return the opening bid from the Bid table
+			if (highestBidSub == null)
+			{
+				return Ok(new
+				{
+					BidId = bidId,
+					HighestBid = bid.OpeningBid
+				});
+			}
+
+			// Return the highest bid from the Bid_Sub table
+			return Ok(new
+			{
+				BidId = bidId,
+				HighestBid = highestBidSub.Amount
+			});
+		}
 	}
 }
+
