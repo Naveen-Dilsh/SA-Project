@@ -29,7 +29,7 @@ namespace Car_Auction_Backend.Models
 
 		//Relationship with Bid_sub
 		[JsonIgnore]
-		public virtual ICollection<Bid_Sub>? Bid_Subs { get; set; }
+		public virtual ICollection<Bid_Sub>? Bid_subs { get; set; }
 	}
 
 }

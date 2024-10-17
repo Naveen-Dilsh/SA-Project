@@ -14,7 +14,7 @@ public class PaymentConfig : IEntityTypeConfiguration<Payment>
 		builder.Property(x => x.PStatus).HasDefaultValue("Pending");
 		builder.Property(x => x.PDate).IsRequired();
 
-		builder.HasOne(b => b.Bid_Sub)
+		builder.HasOne(b => b.Bid_sub)
 			.WithOne(c => c.Payment)
 			.HasForeignKey<Payment>(b => b.SubmissionId)
 			.HasConstraintName("FK_Payment_BidSub")

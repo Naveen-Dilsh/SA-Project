@@ -1,5 +1,6 @@
 ﻿using Car_Auction_Backend.Data;
 using Car_Auction_Backend.Models;
+using Car_Auction_Backend.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,11 +12,36 @@ namespace Car_Auction_Backend.Controllers
 	public class BidSubController : ControllerBase
 	{
 		private readonly ApplicationDbContext _context;
+		private readonly IBidSubService _bidSubService;
+		private readonly ILogger<BidSubController> _logger;
 
-		public BidSubController(ApplicationDbContext context)
+		public BidSubController(ApplicationDbContext context, IBidSubService bidSubService, ILogger<BidSubController> logger)
 		{
 			_context = context;
+			_bidSubService = bidSubService;
+			_logger = logger;
 		}
+
+
+		[HttpPost("finalize/{bidId}")]
+		public async Task<IActionResult> FinalizeBid(int bidId)
+		{
+			_logger.LogInformation("Received request to finalize bid {bidId}", bidId);
+
+			var result = await _bidSubService.FinalizeBidAndNotifyWinner(bidId);
+
+			if (result)
+			{
+				_logger.LogInformation("Successfully finalized bid {bidId}", bidId);
+				return Ok(new { message = "Bid finalized and winner notified successfully." });
+			}
+			else
+			{
+				_logger.LogWarning("Failed to finalize bid {bidId}", bidId);
+				return BadRequest(new { message = "Failed to finalize bid. No valid bids found or other error occurred." });
+			}
+		}
+
 
 		// POST: api/Admin
 		[HttpPost]
