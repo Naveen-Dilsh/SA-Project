@@ -101,6 +101,12 @@ builder.Services.AddTransient<SmtpClient>((serviceProvider) =>
 	};
 });
 
+// Add AuctionFinalizerService as a hosted service
+builder.Services.AddHostedService<AuctionFinalizerService>();
+
+// Register IBidSubService
+builder.Services.AddScoped<IBidSubService, BidSubService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

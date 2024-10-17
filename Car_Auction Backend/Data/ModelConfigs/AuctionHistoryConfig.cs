@@ -15,7 +15,7 @@ namespace Car_Auction_Backend.Data.Configs
 			builder.Property(b => b.EndTime).IsRequired();
 			builder.Property(b => b.FinalBidAmount).IsRequired();
 
-			builder.HasOne(b => b.Bid_Sub)
+			builder.HasOne(b => b.Bid_sub)
 				.WithOne(c => c.AuctionHistory)
 				.HasForeignKey<AuctionHistory>(c => c.Submissions_Id)
 				.HasConstraintName("FK_Auction_BidSub");

@@ -8,5 +8,6 @@ namespace Car_Auction_Backend.Services
 		Task SendAdminRegistrationNotification(Admin admin);
 		Task SendAdminApprovalNotification(Admin admin);
 		Task SendAdminRejectionNotification(Admin admin);
+		Task SendWinningBidNotification(User user, Bid bid);
 	}
 }

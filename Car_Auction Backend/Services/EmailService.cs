@@ -68,6 +68,20 @@ namespace Car_Auction_Backend.Services
 
 			await _smtpClient.SendMailAsync(mailMessage);
 		}
+
+
+		public async Task SendWinningBidNotification(User user, Bid bid)
+		{
+			var mailMessage = new MailMessage
+			{
+				From = new MailAddress(_senderEmail),
+				Subject = "Congratulations! You've won the auction",
+				Body = $"Dear {user.UName},<br><br>Congratulations! You've won the auction for {bid.Car.Brand} {bid.Car.Model}. Your winning bid was ${bid.Bid_Subs.Max(bs => bs.Amount)}.<br><br>Please log in to your account for further details on completing the purchase.",
+				IsBodyHtml = true,
+			};
+			mailMessage.To.Add(user.UEmail);
+			await _smtpClient.SendMailAsync(mailMessage);
+		}
 	}
 
 

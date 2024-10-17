@@ -18,12 +18,12 @@ namespace Car_Auction_Backend.Data.Configs
 			builder.Property(n => n.BStatus).HasDefaultValue("Ongoing");
 
 			builder.HasOne(n => n.User)
-				.WithMany(n => n.Bid_Subs)
+				.WithMany(n => n.Bid_subs)
 				.HasForeignKey(n => n.UserId)
 				.HasConstraintName("FK_BidSubs_User");
 
 			builder.HasOne(b => b.Bid)
-				.WithMany(c => c.Bid_Subs)
+				.WithMany(c => c.Bid_subs)
 				.HasForeignKey(b => b.BidID)
 				.HasConstraintName("FK_BidSub_Bid");
 

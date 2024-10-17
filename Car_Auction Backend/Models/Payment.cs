@@ -22,7 +22,7 @@ namespace Car_Auction_Backend.Models
 
 		//Relationship between Bid_sub 1: 1
 		[JsonIgnore]
-		public virtual Bid_Sub? Bid_Sub { get; set; }
+		public virtual Bid_Sub? Bid_sub { get; set; }
 
 		//Relationship between User 1 : M
 		[JsonIgnore]
