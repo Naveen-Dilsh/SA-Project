@@ -1,12 +1,16 @@
 import './App.css';
-import Navbar from './Components/Navbar';
+import AboutUs from './Components/User/AboutUs/AboutUs';
 
-function App() {
-  return (
-    <div className="App">
-      <Navbar/>
-    </div>
-  );
-}
 
-export default App;
+  function App() {
+    return (
+      <div>
+      <AboutUs/> 
+     {/* <Wishlist/> */}
+       {/* <Cardetails/>  */}
+      
+      </div>
+    );
+  }
+  
+  export default App;
