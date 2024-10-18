@@ -15,7 +15,7 @@ namespace Car_Auction_Backend.Data.Configs
 
 			builder.Property(n => n.Amount).IsRequired();
 			builder.Property(n => n.ReservationPrice).IsRequired();
-			builder.Property(n => n.BStatus).HasDefaultValue("Ongoing");
+			builder.Property(n => n.BSStatus).HasDefaultValue("Ongoing");
 
 			builder.HasOne(n => n.User)
 				.WithMany(n => n.Bid_Subs)

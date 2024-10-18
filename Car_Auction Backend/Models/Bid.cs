@@ -21,6 +21,8 @@ namespace Car_Auction_Backend.Models
 
 		public DateTime EndTime { get; set; }
 
+		public string Bstatus { get; set; } = "Ongoing";
+
 		[JsonIgnore]
 		public virtual Admin? Admin { get; set; }
 

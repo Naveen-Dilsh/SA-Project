@@ -58,6 +58,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.Configure<JWTSettings>(builder.Configuration.GetSection("JWTSettings"));
 builder.Services.AddScoped<AuthService>(); // Authentication service
 
+builder.Services.AddHostedService<AuctionFinalizationService>();
+
 // Configure JWT Authentication
 builder.Services.AddAuthentication(options =>
 {
