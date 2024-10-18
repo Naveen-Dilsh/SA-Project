@@ -16,7 +16,7 @@ namespace Car_Auction_Backend.Models
 
 		public Decimal ReservationPrice {  get; set; }
 
-		public String BStatus { get; set; }
+		public String BSStatus { get; set; } = "Ongoing";
 
 		//Relationship between User 1 : M
 		[JsonIgnore]
