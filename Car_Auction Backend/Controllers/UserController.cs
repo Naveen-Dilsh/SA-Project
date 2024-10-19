@@ -2,6 +2,7 @@
 using Car_Auction_Backend.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Car_Auction_Backend.Controllers
 {
@@ -33,6 +34,19 @@ namespace Car_Auction_Backend.Controllers
 			await _context.SaveChangesAsync();
 
 			return(user);
+		}
+
+
+		// GET: api/User/verified-users-count
+		[HttpGet("verified-users-count")]
+		public async Task<ActionResult<int>> GetVerifiedUsersCount()
+		{
+			// Count users where IsEmailVerified is true
+			var verifiedUsersCount = await _context.users
+				.Where(u => u.IsEmailVerified)
+				.CountAsync();
+
+			return Ok(verifiedUsersCount);
 		}
 	}
 }
