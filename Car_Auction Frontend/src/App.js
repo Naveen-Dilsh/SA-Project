@@ -1,6 +1,7 @@
 import './App.css';
 import AboutUs from './Components/User/AboutUs/AboutUs';
 import Wishlist from './Components/User/Wishlist/Wishlist';
+import CarDetails from './Components/User/CarDetails/CarDetails';
 
 
 
@@ -8,8 +9,8 @@ import Wishlist from './Components/User/Wishlist/Wishlist';
     return (
       <div>
       {/* <AboutUs/>  */}
-      <Wishlist/>
-       {/* <Cardetails/>  */}
+      {/* <Wishlist/> */}
+      <CarDetails/> 
       
       </div>
     );
