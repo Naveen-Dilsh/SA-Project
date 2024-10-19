@@ -64,7 +64,8 @@ namespace Car_Auction_Backend.Services
 					AEmail = userDto.UEmail,
 					ARole = "Admin",
 					IsMainAdmin = isFirstAdmin,
-					AStatus = isFirstAdmin ? "Approved" : "Pending"
+					AStatus = isFirstAdmin ? "Approved" : "Pending",
+					Brand = userDto.Brand
 				};
 				_context.Admins.Add(admin);
 				await _context.SaveChangesAsync();

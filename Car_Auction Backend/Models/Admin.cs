@@ -20,6 +20,8 @@ namespace Car_Auction_Backend.Models
 
 		public string AStatus { get; set; }
 
+		public string Brand { get; set; }
+
 		[JsonIgnore]
 		public virtual ICollection<Bid>? Bids { get; set; }
 		
