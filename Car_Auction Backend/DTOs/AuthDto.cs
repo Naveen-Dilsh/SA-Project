@@ -14,6 +14,8 @@ namespace Car_Auction_Backend.DTOs
 		public string UPassword { get; set; }
 
 		public string URole { get; set; } // Role selected from frontend
+
+		public string Brand {  get; set; }
 	}
 
 }

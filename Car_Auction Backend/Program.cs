@@ -60,6 +60,8 @@ builder.Services.AddScoped<AuthService>(); // Authentication service
 
 builder.Services.AddHostedService<AuctionFinalizationService>();
 
+builder.Services.AddHostedService<HighestBidUpdateService>();
+
 // Configure JWT Authentication
 builder.Services.AddAuthentication(options =>
 {
