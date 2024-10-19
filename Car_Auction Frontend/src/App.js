@@ -8,6 +8,8 @@ import LastSection from './Components/Commoin/Home/LastSection';
 import Navbar from './Components/Commoin/Navbar/Navbar';
 import Footer from './Components/Commoin/Footer/Footer';
 import Profile from './Components/User/Profile/Profile';
+import Contact_Us from './Components/User/ContactUs/Contact_Us';
+import Car_Listing from './Components/User/CarListing/Car_Listing';
 
 
 function App() {
@@ -22,7 +24,10 @@ function App() {
       <Howtoplacebid/>
       <LastSection/>
       <Profile/>
+      <Contact_Us/>
+      <Car_Listing/>
       <Footer/>
+
     </div>
   );
 }
