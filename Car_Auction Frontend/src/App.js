@@ -7,6 +7,8 @@ import VehicalbrandSection from './Components/Commoin/Home/VehicalbrandSection';
 import LastSection from './Components/Commoin/Home/LastSection';
 import Navbar from './Components/Commoin/Navbar/Navbar';
 import Footer from './Components/Commoin/Footer/Footer';
+import Profile from './Components/User/Profile/Profile';
+
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
       <TestimonialSection/>
       <Howtoplacebid/>
       <LastSection/>
+      <Profile/>
       <Footer/>
     </div>
   );
