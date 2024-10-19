@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Car_Auction_Backend.DTOs;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Car_Auction_Backend.Controllers
 {
@@ -43,6 +44,9 @@ namespace Car_Auction_Backend.Controllers
 			{
 				return BadRequest("Admin not found.");
 			}
+
+			// Set HighBid equal to OpeningBid when a new bid is created
+			bid.HighBid = bid.OpeningBid;
 
 			// Add bid to the database
 			_context.Bids.Add(bid);
@@ -167,5 +171,40 @@ namespace Car_Auction_Backend.Controllers
 			return Ok(BidDetails);
 		}
 
+
+		// GET: api/Bid/all-bids-with-cars
+		[HttpGet("all-bids-with-cars")]
+		public async Task<ActionResult<IEnumerable<object>>> GetAllBidsWithCars()
+		{
+			var bidsWithCars = await _context.Bids
+				.Include(b => b.Car)
+				.Select(b => new
+				{
+					BidId = b.BidId,
+					HighBid = b.HighBid,
+					Car = new
+					{
+						CId = b.Car.CId,
+						Brand = b.Car.Brand,
+						Model = b.Car.Model,
+						Year = b.Car.Year,
+						ImageUrl = b.Car.ImageUrl,
+						Description = b.Car.Description
+					}
+				})
+				.ToListAsync();
+
+			if (bidsWithCars == null || !bidsWithCars.Any())
+			{
+				return NotFound("No bids with cars found.");
+			}
+
+			return Ok(bidsWithCars);
+		}
+
+
+		
 	}
+
 }
+

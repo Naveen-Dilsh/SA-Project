@@ -25,10 +25,9 @@ namespace Car_Auction_Backend.Controllers
 			var isMainAdmin = User.HasClaim(c => c.Type == "IsMainAdmin" && c.Value == "true");
 			if (!isMainAdmin)
 			{
-				Console.WriteLine("invalid",isMainAdmin);
+				Console.WriteLine("invalid", isMainAdmin);
 				return Forbid();
 			}
-
 			var pendingAdmins = await _mainAdminService.GetPendingAdmins();
 			return Ok(pendingAdmins);
 		}
