@@ -202,8 +202,27 @@ namespace Car_Auction_Backend.Controllers
 			return Ok(bidsWithCars);
 		}
 
+		// GET: api/Bid/admin/{adminId}/active-auctions
+		[HttpGet("admin/{adminId}/active-auctions")]
+		public async Task<ActionResult<int>> GetActiveAuctionsCountForAdmin(int adminId)
+		{
+			// Check if the admin exists
+			var adminExists = await _context.Admins.AnyAsync(a => a.AId == adminId);
+			if (!adminExists)
+			{
+				return NotFound("Admin not found.");
+			}
 
-		
+			// Count the number of ongoing auctions for the specified admin
+			var activeAuctionsCount = await _context.Bids
+				.Where(b => b.AdminId == adminId && b.Bstatus == "Ongoing")
+				.CountAsync();
+
+			return Ok(activeAuctionsCount);
+		}
+
+
+
 	}
 
 }
