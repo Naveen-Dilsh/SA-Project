@@ -29,8 +29,8 @@ const ActiveBid = () => {
   return (
     <div className="flex-auto pb-1 bg-white border border-gray-300 rounded-sm">
       {/* Header for Auction History */}
-      <h1 className="mt-10 mb-8 text-3xl font-bold text-center">Active Bids</h1>
-
+      <h1 className="mt-10 mb-8 text-4xl font-bold text-center">Active Bids</h1>
+      <div className="w-10/12 mx-auto">
       <div className="flex items-center justify-between mb-4">
         {/* Left side: Search and Status dropdown */}
         <div className="flex items-center gap-x-5">
@@ -38,14 +38,14 @@ const ActiveBid = () => {
           <input
             type="text"
             placeholder="Search..."
-            className="p-2 mt-10 border border-gray-300 rounded-md w-1/7"
+            className="p-3 mt-10 text-lg border border-gray-300 rounded-md w-80" // Increased padding and text size
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
 
           {/* Status filter dropdown */}
           <select
-            className="p-2 mt-10 text-gray-500 border border-gray-300 rounded-md"
+            className="w-48 p-3 mt-10 text-lg text-gray-500 border border-gray-300 rounded-md" // Increased padding and text size
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
           >
@@ -58,7 +58,7 @@ const ActiveBid = () => {
         {/* Right side: Date range dropdown */}
         <div>
           <select
-            className="p-2 mt-10 text-gray-500 border border-gray-300 rounded-md"
+            className="w-48 p-3 mt-10 text-lg text-gray-500 border border-gray-300 rounded-md" // Increased padding and text size
             value={dateRange}
             onChange={(e) => setDateRange(e.target.value)}
           >
@@ -71,30 +71,30 @@ const ActiveBid = () => {
       </div>
 
       <div className="mt-8 rounded-sm border-gray-950 border-x">
-        <table className="w-full text-center text-gray-500">
+        <table className="w-full text-lg text-center text-gray-500">
           <thead className="bg-gray-100">
             <tr>
-              <th className="px-2 py-2">CAR MODEL</th>
-              <th className="px-2 py-2">CURRENT BID</th>
-              <th className="px-2 py-2">YOUR HIGHEST BID</th>
-              <th className="px-2 py-2">STATUS</th>
-              <th className="px-2 py-2">TIME REMAINING</th>
-              <th className="px-2 py-2">ACTION</th>
+              <th className="px-4 py-6 text-xl">CAR MODEL</th>
+              <th className="px-4 py-6 text-xl">CURRENT BID</th>
+              <th className="px-4 py-6 text-xl">YOUR HIGHEST BID</th>
+              <th className="px-4 py-6 text-xl">STATUS</th>
+              <th className="px-4 py-6 text-xl">TIME REMAINING</th>
+              <th className="px-4 py-6 text-xl">ACTION</th>
             </tr>
           </thead>
           <tbody>
             {filteredHistory.map((order) => (
               <tr key={order.id} className="border-t">
-                <td className="px-2 py-3">{order.model}</td>
-                <td className="px-2 py-3">{order.c_bid}</td>
-                <td className="px-2 py-3">{order.h_bid}</td>
-                <td className={`px-2 py-3 ${order.status === 'Leading' ? 'text-green-500' : 'text-red-500'}`}>
+                <td className="px-4 py-6 text-lg">{order.model}</td>
+                <td className="px-4 py-6 text-lg">{order.c_bid}</td>
+                <td className="px-4 py-6 text-lg">{order.h_bid}</td>
+                <td className={`px-4 py-6 text-lg ${order.status === 'Leading' ? 'text-green-500' : 'text-red-500'}`}>
                   {order.status}
                 </td>
-                <td className="px-2 py-3">{order.remaining}</td>
-                <td className="px-2 py-3">
+                <td className="px-4 py-6 text-lg">{order.remaining}</td>
+                <td className="px-4 py-6 text-lg">
                   <a href={`/action/${order.id}`} className="text-blue-500 hover:underline">
-                    Place a bid
+                    {order.action}
                   </a>
                 </td>
               </tr>
@@ -102,6 +102,7 @@ const ActiveBid = () => {
           </tbody>
         </table>
       </div>
+     </div>
     </div>
   );
 };
