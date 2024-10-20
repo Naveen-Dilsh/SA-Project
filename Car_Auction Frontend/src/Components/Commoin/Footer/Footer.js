@@ -47,7 +47,7 @@ const Footer = () => {
           </form>
           <p className="mt-2 text-xs text-left text-gray-500">
             By subscribing, you agree to our{" "}
-            <a href="#" className="text-black underline hover:text-gray-400">
+            <a href="/terms" className="text-black underline hover:text-gray-400">
               Terms and Conditions
             </a>
             .
@@ -61,7 +61,7 @@ const Footer = () => {
             <ul className="space-y-1 text-left">
               <li>
                 <a
-                  href=""
+                  href="/contact"
                   className="text-black no-underline hover:text-gray-400"
                 >
                   Contact Us
@@ -69,7 +69,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href=""
+                  href="/faqs"
                   className="text-black no-underline hover:text-gray-400"
                 >
                   FAQs
@@ -77,7 +77,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href=""
+                  href="/support"
                   className="text-black no-underline hover:text-gray-400"
                 >
                   Support
@@ -85,7 +85,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href=""
+                  href="/terms"
                   className="text-black no-underline hover:text-gray-400"
                 >
                   Terms
@@ -93,7 +93,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href=""
+                  href="/privacy"
                   className="text-black no-underline hover:text-gray-400"
                 >
                   Privacy
@@ -108,7 +108,7 @@ const Footer = () => {
             <ul className="space-y-1">
               <li>
                 <a
-                  href=""
+                  href="https://www.facebook.com"
                   aria-label="Follow us on Facebook"
                   className="flex items-center space-x-3 text-black no-underline hover:text-gray-500"
                 >
@@ -118,7 +118,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href=""
+                  href="https://www.instagram.com"
                   aria-label="Follow us on Instagram"
                   className="flex items-center space-x-3 text-black no-underline hover:text-gray-500"
                 >
@@ -128,7 +128,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href=""
+                  href="https://www.twitter.com"
                   aria-label="Follow us on Twitter"
                   className="flex items-center space-x-3 text-black no-underline hover:text-gray-400"
                 >
@@ -138,7 +138,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href=""
+                  href="https://www.linkedin.com"
                   aria-label="Follow us on LinkedIn"
                   className="flex items-center space-x-3 text-black no-underline hover:text-gray-400"
                 >
@@ -148,7 +148,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href=""
+                  href="https://www.youtube.com"
                   aria-label="Follow us on YouTube"
                   className="flex items-center space-x-3 text-black no-underline hover:text-gray-400"
                 >

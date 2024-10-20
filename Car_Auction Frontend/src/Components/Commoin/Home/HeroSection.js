@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import carImage from "../Pictures/Pic 3.jpg";
+import AuthContext from "../../../Context/AuthContext";
 
 const HeroSection = () => {
+      const {user} = useContext(AuthContext);
   return (
     <section className="py-10 px-10 bg-white lg:py-10">
       <div className="container mx-auto">
