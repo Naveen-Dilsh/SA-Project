@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { FaRegHeart } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -97,6 +98,7 @@ const LatestAuctions = () => {
             ))}
           </Swiper>
         </div>
+
       </div>
     </section>
   );

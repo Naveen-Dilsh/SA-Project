@@ -1,13 +1,3 @@
-<<<<<<< Updated upstream
-import './App.css';
-import Navbar from './Components/Navbar';
-
-function App() {
-  return (
-    <div className="App">
-      <Navbar/>
-    </div>
-=======
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -42,7 +32,6 @@ function App() {
         <Footer/>
       </AuthProvider>
     </Router>
->>>>>>> Stashed changes
   );
 }
 

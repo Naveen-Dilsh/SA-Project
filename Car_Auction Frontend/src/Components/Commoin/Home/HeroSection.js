@@ -17,7 +17,7 @@ const HeroSection = () => {
               Experience the thrill of bidding and buying your dream vehicle{" "}
               <br />
               at unbeatable auction prices.
-              <h1>{user.Role}</h1>
+
             </p>
             <div className="-ml-10 text-center">
               <button className="px-6 py-2 mt-6 text-left text-gray-900 transition-all duration-300 border border-gray-900 rounded hover:bg-gray-900 hover:text-white">
