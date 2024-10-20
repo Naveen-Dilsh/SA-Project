@@ -9,8 +9,8 @@ import CarDetails from './Components/User/CarDetails/CarDetails';
     return (
       <div>
       {/* <AboutUs/>  */}
-      {/* <Wishlist/> */}
-      <CarDetails/> 
+       <Wishlist/>
+      {/* <CarDetails/>  */}
       
       </div>
     );
