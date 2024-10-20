@@ -103,7 +103,41 @@ const Navbar = () => {
 
             {/*------Authentication Buttons------*/}
             <div className="flex space-x-4">
+
+
+              {!user && (
+                <>
+              <button className="px-3 py-2 text-sm font-medium text-black no-underline border border-black hover:bg-gray-100">
+                Sign in
+              </button>
+              <Link to="/login">
+              <button className="px-3 py-2 text-sm font-medium text-white no-underline bg-black hover:bg-gray-700">
+                Log in
+              </button>
+              </Link>
+                </>
+
+              ) : (
+                <>
+                <Link to="/user-profile">
+                    <button className="px-3 py-2 text-sm font-medium text-black no-underline border border-black hover:bg-gray-100">
+                      User
+                    </button>
+                  </Link>
+                <button 
+                  onClick={handleLogout} 
+                  className="px-3 py-2 text-sm font-medium text-white no-underline bg-black hover:bg-gray-700"
+                >
+                  Log out
+                </button>
+         
+              )}
+
+
+              {user && (
+
               {!user ? (
+
                 <>
                   <button className="px-3 py-2 text-sm font-medium text-black no-underline border border-black hover:bg-gray-100">
                     Sign in
@@ -181,6 +215,14 @@ const Navbar = () => {
               Contact Us
             </button>
             <div className="flex px-3 py-2 space-x-2">
+
+              <button className="block px-3 py-2 text-sm font-medium text-black border border-black rounded-md">
+                Sign in
+              </button>
+              <button className="block px-3 py-2 text-sm font-medium text-white bg-black rounded-md">
+                Log in
+              </button>
+
               {!user ? (
                 <>
                   <button className="block px-3 py-2 text-sm font-medium text-black border border-black rounded-md">
@@ -193,13 +235,27 @@ const Navbar = () => {
                   </Link>
                 </>
               ) : (
+
+                <>
+                <Link to="/user-profile">
+                    <button className="block px-3 py-2 text-sm font-medium text-white bg-black rounded-md">
+                      User
+                    </button>
+                  </Link>
+
+
                 <button 
                   onClick={handleLogout}
                   className="block px-3 py-2 text-sm font-medium text-white bg-black rounded-md"
                 >
                   Log out
                 </button>
+
+                </>
               )}
+
+              )}
+
             </div>
           </div>
         )}

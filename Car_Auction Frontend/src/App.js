@@ -15,6 +15,9 @@ import MainAdmin from './Components/MainAdmin/MainAdmin';
 import AdminReq from './Components/MainAdmin/AdminReq';
 import AllAdmins from './Components/MainAdmin/AllAdmins';
 import RejectedAdmins from './Components/MainAdmin/RejectedAdmins';
+import Profile from './Components/User/Profile/Profile';
+import AuctionHis from './Components/User/AuctionHistory/AuctionHis';
+import ActiveBid from './Components/User/ActiveBid/ActiveBid';
 
 function App() {
   return (
@@ -36,7 +39,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/login" element={<Login/>} />
-          
+
+
+          {/* Route for user */}
+          <Route path='/user-profile' element={<Profile/>}/>
+          <Route path='/auction-history' element={ <AuctionHis/>}/>
+          <Route path='/active-bids' element={ <ActiveBid/>}/>
+      
+
           {/* Route for main Admin */}
           <Route path='/mainadmin' element={<PrivateRoute role="MainAdmin"><MainAdmin/></PrivateRoute>}/>
           <Route path='/admin-req' element={<PrivateRoute role="MainAdmin"><AdminReq/></PrivateRoute>}/>

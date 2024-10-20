@@ -8,9 +8,11 @@ import { Link } from 'react-router-dom';
 const Sidebar = () => {
   return (
     <div className='fixed w-64 h-full px-4 py-2 bg-white shadow-lg'>
-      <ul className='mt-5 text-2xl text-gray-500'>
+
+      <ul className='mt-5 text-l text-gray-500'>
         <li className='py-2 mb-2 rounded hover:shadow hover:bg-blue-100'> 
-          <Link to="/profile" className='px-3'>
+          <Link to="/user-profile" className='px-3'>
+
             <BiLayout className='inline-block w-6 h-6 mr-2 -mt-2' />
             Profile
           </Link>

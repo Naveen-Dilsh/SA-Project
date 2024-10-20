@@ -1,110 +1,199 @@
-import React, { useState } from 'react';
 
-const History = [
-  { id: 1, model: 'BMW M3', c_bid: '$50 000', h_bid: '$50 000', status: 'Leading', remaining: '2h', action: 'Place a bid' },
-  { id: 2, model: 'Tesla X', c_bid: '$40 000', h_bid: '$30 000', status: 'Outbid', remaining: '10h', action: 'Place a bid' },
-  { id: 3, model: 'BMW M3', c_bid: '$100 000', h_bid: '$50 000', status: 'Outbid', remaining: '2h', action: 'Place a bid' },
-  { id: 4, model: 'BMW M3', c_bid: '$100 000', h_bid: '$50 000', status: 'Leading', remaining: '3h', action: 'Place a bid' },
-  { id: 5, model: 'BMW M3', c_bid: '$100 000', h_bid: '$50 000', status: 'Leading', remaining: '4h', action: 'Place a bid' },
-  { id: 6, model: 'BMW M3', c_bid: '$80 000', h_bid: '$50 000', status: 'Outbid', remaining: '3h', action: 'Place a bid' },
-  { id: 7, model: 'BMW M3', c_bid: '$80 000', h_bid: '$50 000', status: 'Leading', remaining: '2h', action: 'Place a bid' },
-  { id: 8, model: 'BMW M3', c_bid: '$80 000', h_bid: '$50 000', status: 'Outbid', remaining: '5h', action: 'Place a bid' },
-  { id: 9, model: 'BMW M3', c_bid: '$80 000', h_bid: '$50 000', status: 'Leading', remaining: '7h', action: 'Place a bid' },
-  { id: 10, model: 'BMW M3', c_bid: '$80 000', h_bid: '$50 000', status: 'Outbid', remaining: '3h', action: 'Place a bid' },
-];
+import React, { useState, useEffect } from 'react';
+import Sidebar from '../SideBar/SideBar';
+import { Search, Calendar, Filter } from "lucide-react";
 
 const ActiveBid = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [dateRange, setDateRange] = useState('');
+  const [activeBids, setActiveBids] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
-  // Filter the history based on search term, status, and date range
-  const filteredHistory = History.filter((order) => {
-    const matchesSearchTerm = order.model.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === '' || order.status === statusFilter;
-    const matchesDateRange = true; // Temporary true, replace with date logic when available
+  useEffect(() => {
+    const fetchActiveBids = async () => {
+      try {
+        const userId = 29;
+        const response = await fetch(`https://localhost:7021/api/User/${userId}/ActiveAuction`);
+        const result = await response.json();
+        
+        if (response.ok) {
+          setActiveBids(result.data);
+        } else {
+          setError(result.message);
+        }
+      } catch (err) {
+        setError('Failed to fetch active bids');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchActiveBids();
+  }, []);
+
+  useEffect(() => {
+    // Update current time every second
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000); // 1000 milliseconds = 1 second
+
+    // Clear interval on component unmount
+    return () => clearInterval(timer);
+  }, []);
+
+  const filteredBids = activeBids.filter((bid) => {
+    const carModel = `${bid.carDetails.brand} ${bid.carDetails.model}`;
+    const matchesSearchTerm = carModel.toLowerCase().includes(searchTerm.toLowerCase());
+    const status = bid.bidAmount >= bid.bidDetails.highestBid ? 'Leading' : 'Outbid';
+    const matchesStatus = statusFilter === '' || status === statusFilter;
+    const matchesDateRange = dateRange === '' || new Date(bid.bidDetails.endTime).toLocaleDateString() === dateRange;
     return matchesSearchTerm && matchesStatus && matchesDateRange;
   });
 
+  const calculateTimeRemaining = (endTime) => {
+    const timeRemaining = new Date(endTime) - currentTime;
+    if (timeRemaining <= 0) {
+      return "Auction Ended";
+    }
+    const hoursRemaining = Math.floor(timeRemaining / (1000 * 60 * 60));
+    const minutesRemaining = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+    const secondsRemaining = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+    return `${hoursRemaining.toString().padStart(2, '0')}:${minutesRemaining.toString().padStart(2, '0')}:${secondsRemaining.toString().padStart(2, '0')}`;
+  };
+
+  if (loading) return (
+    <div className="d-flex">
+      <Sidebar />
+      <div className="flex-grow-1" style={{ marginLeft: '250px' }}>
+        <div className="d-flex justify-content-center mt-5">Loading...</div>
+      </div>
+    </div>
+  );
+
+  if (error) return (
+    <div className="d-flex">
+      <Sidebar />
+      <div className="flex-grow-1" style={{ marginLeft: '250px' }}>
+        <div className="d-flex justify-content-center mt-5 text-danger">{error}</div>
+      </div>
+    </div>
+  );
+
   return (
-    <div className="flex-auto pb-1 bg-white border border-gray-300 rounded-sm">
-      {/* Header for Auction History */}
-      <h1 className="mt-10 mb-8 text-4xl font-bold text-center">Active Bids</h1>
-      <div className="w-10/12 mx-auto">
-      <div className="flex items-center justify-between mb-4">
-        {/* Left side: Search and Status dropdown */}
-        <div className="flex items-center gap-x-5">
-          {/* Search bar */}
-          <input
-            type="text"
-            placeholder="Search..."
-            className="p-3 mt-10 text-lg border border-gray-300 rounded-md w-80" // Increased padding and text size
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+    <div style={{ display: 'flex', minHeight: '100vh' }}>
+      <Sidebar />
+      
+      <div style={{ marginLeft: '250px', flexGrow: 1, padding: '20px', backgroundColor: '#f8f9fa' }}>
+        <div className="card shadow-sm">
+          <div className="card-body">
+            <h1 className="text-center mb-4 fw-bold fs-2">Active Bids</h1>
 
-          {/* Status filter dropdown */}
-          <select
-            className="w-48 p-3 mt-10 text-lg text-gray-500 border border-gray-300 rounded-md" // Increased padding and text size
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-          >
-            <option value="">Status: All</option>
-            <option value="Leading">Leading</option>
-            <option value="Outbid">Outbid</option>
-          </select>
-        </div>
+            <div className="row g-3 mb-4">
+              <div className="col-12 col-md-4">
+                <div className="input-group">
+                  <span className="input-group-text bg-white">
+                    <Search size={20} />
+                  </span>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Search by car model..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                </div>
+              </div>
 
-        {/* Right side: Date range dropdown */}
-        <div>
-          <select
-            className="w-48 p-3 mt-10 text-lg text-gray-500 border border-gray-300 rounded-md" // Increased padding and text size
-            value={dateRange}
-            onChange={(e) => setDateRange(e.target.value)}
-          >
-            <option value="">Filter by Date Range</option>
-            <option value="12/9/2024">12/9/2024</option>
-            <option value="13/9/2024">13/9/2024</option>
-            <option value="14/9/2024">14/9/2024</option>
-          </select>
+              <div className="col-12 col-md-4">
+                <div className="input-group">
+                  <span className="input-group-text bg-white">
+                    <Filter size={20} />
+                  </span>
+                  <select
+                    className="form-select"
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                  >
+                    <option value="">All Status</option>
+                    <option value="Leading">Leading</option>
+                    <option value="Outbid">Outbid</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="col-12 col-md-4">
+                <div className="input-group">
+                  <span className="input-group-text bg-white">
+                    <Calendar size={20} />
+                  </span>
+                  <select
+                    className="form-select"
+                    value={dateRange}
+                    onChange={(e) => setDateRange(e.target.value)}
+                  >
+                    <option value="">All Dates</option>
+                    {[...new Set(activeBids.map(bid => 
+                      new Date(bid.bidDetails.endTime).toLocaleDateString()
+                    ))].map(date => (
+                      <option key={date} value={date}>{date}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div className="table-responsive">
+              <table className="table table-hover">
+                <thead className="table-light">
+                  <tr>
+                    <th>AUCTION ID</th>
+                    <th>CAR MODEL</th>
+                    <th>STATUS</th>
+                    <th>CURRENT BID</th>
+                    <th>YOUR HIGHEST BID</th>
+                    <th>TIME REMAINING</th>
+                    <th>ACTION</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredBids.map((bid) => {
+                    const status = bid.bidAmount >= bid.bidDetails.highestBid ? 'Leading' : 'Outbid';
+                    return (
+                      <tr key={bid.submissionId}>
+                        <td>{bid.submissionId}</td>
+                        <td className="fw-medium">
+                          {`${bid.carDetails.brand} ${bid.carDetails.model}`}
+                        </td>
+                        <td>
+                          <span className={`badge ${status === 'Leading' ? 'bg-success' : 'bg-danger'}`}>
+                            {status}
+                          </span>
+                        </td>
+                        <td>${bid.bidDetails.highestBid.toLocaleString()}</td>
+                        <td>${bid.bidAmount.toLocaleString()}</td>
+                        <td>{calculateTimeRemaining(bid.bidDetails.endTime)}</td>
+                        <td>
+                          <a href={`/place-bid/${bid.submissionId}`} 
+                             className="text-primary text-decoration-none">
+                            Place a bid
+                          </a>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="mt-8 rounded-sm border-gray-950 border-x">
-        <table className="w-full text-lg text-center text-gray-500">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="px-4 py-6 text-xl">CAR MODEL</th>
-              <th className="px-4 py-6 text-xl">CURRENT BID</th>
-              <th className="px-4 py-6 text-xl">YOUR HIGHEST BID</th>
-              <th className="px-4 py-6 text-xl">STATUS</th>
-              <th className="px-4 py-6 text-xl">TIME REMAINING</th>
-              <th className="px-4 py-6 text-xl">ACTION</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredHistory.map((order) => (
-              <tr key={order.id} className="border-t">
-                <td className="px-4 py-6 text-lg">{order.model}</td>
-                <td className="px-4 py-6 text-lg">{order.c_bid}</td>
-                <td className="px-4 py-6 text-lg">{order.h_bid}</td>
-                <td className={`px-4 py-6 text-lg ${order.status === 'Leading' ? 'text-green-500' : 'text-red-500'}`}>
-                  {order.status}
-                </td>
-                <td className="px-4 py-6 text-lg">{order.remaining}</td>
-                <td className="px-4 py-6 text-lg">
-                  <a href={`/action/${order.id}`} className="text-blue-500 hover:underline">
-                    {order.action}
-                  </a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-     </div>
     </div>
   );
 };
 
 export default ActiveBid;
+
