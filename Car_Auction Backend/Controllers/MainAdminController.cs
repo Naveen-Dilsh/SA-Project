@@ -25,10 +25,9 @@ namespace Car_Auction_Backend.Controllers
 			var isMainAdmin = User.HasClaim(c => c.Type == "IsMainAdmin" && c.Value == "true");
 			if (!isMainAdmin)
 			{
-				Console.WriteLine("invalid",isMainAdmin);
+				Console.WriteLine("invalid", isMainAdmin);
 				return Forbid();
 			}
-
 			var pendingAdmins = await _mainAdminService.GetPendingAdmins();
 			return Ok(pendingAdmins);
 		}
@@ -82,6 +81,50 @@ namespace Car_Auction_Backend.Controllers
 			{
 				return BadRequest(new { Message = ex.Message });
 			}
+		}
+
+
+		[HttpGet("approved-admins")]
+		public async Task<IActionResult> GetApprovedAdmins()
+		{
+			var isMainAdmin = User.HasClaim(c => c.Type == "IsMainAdmin" && c.Value == "true");
+			if (!isMainAdmin)
+			{
+				return Forbid();
+			}
+			var approvedAdmins = await _mainAdminService.GetApprovedAdmins();
+			return Ok(approvedAdmins);
+		}
+
+		[HttpDelete("remove-admin/{adminId}")]
+		public async Task<IActionResult> RemoveAdmin(int adminId)
+		{
+			var isMainAdmin = User.HasClaim(c => c.Type == "IsMainAdmin" && c.Value == "true");
+			if (!isMainAdmin)
+			{
+				return Forbid();
+			}
+			try
+			{
+				await _mainAdminService.RemoveAdmin(adminId);
+				return Ok(new { Message = "Admin removed successfully." });
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(new { Message = ex.Message });
+			}
+		}
+
+		[HttpGet("Rejected-admins")]
+		public async Task<IActionResult> GetRejecteddAdmins()
+		{
+			var isMainAdmin = User.HasClaim(c => c.Type == "IsMainAdmin" && c.Value == "true");
+			if (!isMainAdmin)
+			{
+				return Forbid();
+			}
+			var approvedAdmins = await _mainAdminService.GetApprovedAdmins();
+			return Ok(approvedAdmins);
 		}
 	}
 }

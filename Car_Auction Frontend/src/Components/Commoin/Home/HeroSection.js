@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import carImage from "../Pictures/Pic 3.jpg";
+import AuthContext from "../../../Context/AuthContext";
 
 const HeroSection = () => {
+      const {user} = useContext(AuthContext);
   return (
     <section className="py-10 px-10 bg-white lg:py-10">
       <div className="container mx-auto">
@@ -15,6 +17,7 @@ const HeroSection = () => {
               Experience the thrill of bidding and buying your dream vehicle{" "}
               <br />
               at unbeatable auction prices.
+
             </p>
             <div className="-ml-10 text-center">
               <button className="px-6 py-2 mt-6 text-left text-gray-900 transition-all duration-300 border border-gray-900 rounded hover:bg-gray-900 hover:text-white">

@@ -26,6 +26,11 @@ public class AuthController : ControllerBase
 	{
 		try
 		{
+			if (userDto.URole.ToLower() == "admin" && string.IsNullOrEmpty(userDto.Brand))
+			{
+				return BadRequest(new { Message = "Brand is required for admin registration." });
+			}
+
 			await _authService.RegisterUser(userDto);
 			if (userDto.URole.ToLower() == "user")
 			{

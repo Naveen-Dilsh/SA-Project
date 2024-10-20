@@ -23,6 +23,8 @@ namespace Car_Auction_Backend.Models
 
 		public string Bstatus { get; set; } = "Ongoing";
 
+		public decimal HighBid { get; set; }
+
 		[JsonIgnore]
 		public virtual Admin? Admin { get; set; }
 
