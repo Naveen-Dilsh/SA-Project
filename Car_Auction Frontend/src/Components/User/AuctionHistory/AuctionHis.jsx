@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../SideBar/SideBar';
 import { Search, Calendar, Filter } from "lucide-react";
@@ -168,9 +169,13 @@ const AuctionHis = () => {
             </div>
           </div>
         </div>
+
+
       </div>
     </div>
   );
 };
 
+
 export default AuctionHis;
+

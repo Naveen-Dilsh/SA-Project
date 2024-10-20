@@ -1,6 +1,9 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './Context/AuthContext';
 import PrivateRoute from './Utils/PrivateRoute';
 
@@ -16,26 +19,34 @@ import Profile from './Components/User/Profile/Profile';
 import AuctionHis from './Components/User/AuctionHistory/AuctionHis';
 import ActiveBid from './Components/User/ActiveBid/ActiveBid';
 
-
 function App() {
   return (
     <Router>
       <AuthProvider>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
         <Navbar/>
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/login" element={<Login/>} />
-<<<<<<< Updated upstream
-        
-=======
+
 
           {/* Route for user */}
           <Route path='/user-profile' element={<Profile/>}/>
           <Route path='/auction-history' element={ <AuctionHis/>}/>
           <Route path='/active-bids' element={ <ActiveBid/>}/>
       
-          
->>>>>>> Stashed changes
+
           {/* Route for main Admin */}
           <Route path='/mainadmin' element={<PrivateRoute role="MainAdmin"><MainAdmin/></PrivateRoute>}/>
           <Route path='/admin-req' element={<PrivateRoute role="MainAdmin"><AdminReq/></PrivateRoute>}/>

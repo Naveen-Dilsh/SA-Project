@@ -1,21 +1,26 @@
-
 import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import logo from '../Pictures/logo.png';
-import { Link } from "react-router-dom";
 import AuthContext from '../../../Context/AuthContext';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const {user, logoutUser} = useContext(AuthContext);
-
-import React, { useState } from 'react';
-import logo from '../Pictures/logo.png';
-
-const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-
+  const { user, logoutUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      toast.success('Logged out successfully!');
+      navigate('/');
+    } catch (error) {
+      toast.error('Logout failed. Please try again.');
+    }
   };
 
   return (
@@ -56,18 +61,11 @@ const Navbar = () => {
           <div className="items-center justify-between flex-1 hidden md:flex">
             <div className="flex items-center space-x-4 lg:space-x-8">
               {/*------Navigation Links------*/}
-
-
               <Link to="/">
-              <button className="px-3 py-2 text-sm font-medium text-gray-700 no-underline">
-                Home
-              </button>
+                <button className="px-3 py-2 text-sm font-medium text-gray-700 no-underline">
+                  Home
+                </button>
               </Link>
-
-              <button className="px-3 py-2 text-sm font-medium text-gray-700 no-underline">
-                Home
-              </button>
-
 
               {/*------Search Bar for Desktop------*/}
               <div className="relative hidden w-48 md:block">
@@ -106,6 +104,7 @@ const Navbar = () => {
             {/*------Authentication Buttons------*/}
             <div className="flex space-x-4">
 
+
               {!user && (
                 <>
               <button className="px-3 py-2 text-sm font-medium text-black no-underline border border-black hover:bg-gray-100">
@@ -117,8 +116,7 @@ const Navbar = () => {
               </button>
               </Link>
                 </>
-<<<<<<< Updated upstream
-=======
+
               ) : (
                 <>
                 <Link to="/user-profile">
@@ -132,21 +130,32 @@ const Navbar = () => {
                 >
                   Log out
                 </button>
-                </>
->>>>>>> Stashed changes
+         
               )}
 
 
               {user && (
-                <>
-                 <button onClick={logoutUser} className="px-3 py-2 text-sm font-medium text-white no-underline bg-black hover:bg-gray-700">
-                   Log out
-                 </button>
-                </>
-              )}
-              
 
-             
+              {!user ? (
+
+                <>
+                  <button className="px-3 py-2 text-sm font-medium text-black no-underline border border-black hover:bg-gray-100">
+                    Sign in
+                  </button>
+                  <Link to="/login">
+                    <button className="px-3 py-2 text-sm font-medium text-white no-underline bg-black hover:bg-gray-700">
+                      Log in
+                    </button>
+                  </Link>
+                </>
+              ) : (
+                <button 
+                  onClick={handleLogout} 
+                  className="px-3 py-2 text-sm font-medium text-white no-underline bg-black hover:bg-gray-700"
+                >
+                  Log out
+                </button>
+              )}
             </div>
           </div>
 
@@ -167,9 +176,35 @@ const Navbar = () => {
         {/*------Mobile Menu------*/}
         {menuOpen && (
           <div className="mt-2 space-y-2 md:hidden">
-            <button className="block px-3 py-2 text-sm font-medium text-gray-700 rounded-md">
-              Home
-            </button>
+            {/*------Search Bar for Mobile Menu------*/}
+            <div className="relative">
+              <input
+                type="text"
+                className="w-full px-3 py-1 border border-black rounded-full"
+                placeholder="Search"
+              />
+              <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                <svg
+                  className="w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.9 14.32a7 7 0 111.414-1.414l4.292 4.293a1 1 0 01-1.414 1.414l-4.292-4.293zM8 14a6 6 0 100-12 6 6 0 000 12z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </div>
+
+            {/*------Navigation Links for Mobile Menu------*/}
+            <Link to="/">
+              <button className="block px-3 py-2 text-sm font-medium text-gray-700 rounded-md">
+                Home
+              </button>
+            </Link>
             <button className="block px-3 py-2 text-sm font-medium text-gray-700 rounded-md">
               Browse Cars
             </button>
@@ -180,14 +215,14 @@ const Navbar = () => {
               Contact Us
             </button>
             <div className="flex px-3 py-2 space-x-2">
-<<<<<<< Updated upstream
+
               <button className="block px-3 py-2 text-sm font-medium text-black border border-black rounded-md">
                 Sign in
               </button>
               <button className="block px-3 py-2 text-sm font-medium text-white bg-black rounded-md">
                 Log in
               </button>
-=======
+
               {!user ? (
                 <>
                   <button className="block px-3 py-2 text-sm font-medium text-black border border-black rounded-md">
@@ -200,6 +235,7 @@ const Navbar = () => {
                   </Link>
                 </>
               ) : (
+
                 <>
                 <Link to="/user-profile">
                     <button className="block px-3 py-2 text-sm font-medium text-white bg-black rounded-md">
@@ -207,22 +243,25 @@ const Navbar = () => {
                     </button>
                   </Link>
 
+
                 <button 
                   onClick={handleLogout}
                   className="block px-3 py-2 text-sm font-medium text-white bg-black rounded-md"
                 >
                   Log out
                 </button>
+
                 </>
               )}
->>>>>>> Stashed changes
+
+              )}
+
             </div>
           </div>
         )}
       </div>
-     
-       <hr className="shadow-md" />
-     
+
+      <hr className="shadow-md" />
     </nav>
   );
 };

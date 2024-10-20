@@ -1,5 +1,13 @@
 import React, { useState } from "react";
+
 import Sidebar from "../SideBar/SideBar";
+
+import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
+import StorageOutlinedIcon from '@mui/icons-material/StorageOutlined';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 
 function Profile() {
@@ -9,6 +17,7 @@ function Profile() {
     <div className="flex flex-col min-h-screen">
       <div className="flex flex-1">
         
+
         <Sidebar/> {/* Use the new Sidebar here */}
 
         <div className="flex-1 p-6">
@@ -106,6 +115,7 @@ function Profile() {
           </form>
         </div>
       </div>
+
     </div>
   );
 }
