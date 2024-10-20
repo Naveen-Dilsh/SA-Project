@@ -107,9 +107,11 @@ const Navbar = () => {
                 <SearchBar />
               </div>
 
+              <Link to="/auction-listings">
               <button className="px-3 py-2 text-sm font-medium text-gray-700 no-underline">
                 Browse Cars
               </button>
+              </Link>
               <button className="px-3 py-2 text-sm font-medium text-gray-700 no-underline">
                 About Us
               </button>

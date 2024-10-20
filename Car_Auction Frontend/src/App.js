@@ -18,6 +18,7 @@ import RejectedAdmins from './Components/MainAdmin/RejectedAdmins';
 import Profile from './Components/User/Profile/Profile';
 import AuctionHis from './Components/User/AuctionHistory/AuctionHis';
 import ActiveBid from './Components/User/ActiveBid/ActiveBid';
+import AuctionListings from './Components/User/CarListing/Car_Listing';
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/login" element={<Login/>} />
+          <Route path='/auction-listings' element={<AuctionListings/>}/>
 
 
           {/* Route for user */}
