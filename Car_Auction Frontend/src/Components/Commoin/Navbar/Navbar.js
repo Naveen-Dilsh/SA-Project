@@ -1,3 +1,13 @@
+
+import React, { useContext, useState } from 'react';
+import logo from '../Pictures/logo.png';
+import { Link } from "react-router-dom";
+import AuthContext from '../../../Context/AuthContext';
+
+const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const {user, logoutUser} = useContext(AuthContext);
+
 import React, { useState } from 'react';
 import logo from '../Pictures/logo.png';
 
@@ -46,9 +56,18 @@ const Navbar = () => {
           <div className="items-center justify-between flex-1 hidden md:flex">
             <div className="flex items-center space-x-4 lg:space-x-8">
               {/*------Navigation Links------*/}
+
+
+              <Link to="/">
               <button className="px-3 py-2 text-sm font-medium text-gray-700 no-underline">
                 Home
               </button>
+              </Link>
+
+              <button className="px-3 py-2 text-sm font-medium text-gray-700 no-underline">
+                Home
+              </button>
+
 
               {/*------Search Bar for Desktop------*/}
               <div className="relative hidden w-48 md:block">
@@ -86,12 +105,31 @@ const Navbar = () => {
 
             {/*------Authentication Buttons------*/}
             <div className="flex space-x-4">
+
+              {!user && (
+                <>
               <button className="px-3 py-2 text-sm font-medium text-black no-underline border border-black hover:bg-gray-100">
                 Sign in
               </button>
+              <Link to="/login">
               <button className="px-3 py-2 text-sm font-medium text-white no-underline bg-black hover:bg-gray-700">
                 Log in
               </button>
+              </Link>
+                </>
+              )}
+
+
+              {user && (
+                <>
+                 <button onClick={logoutUser} className="px-3 py-2 text-sm font-medium text-white no-underline bg-black hover:bg-gray-700">
+                   Log out
+                 </button>
+                </>
+              )}
+              
+
+             
             </div>
           </div>
 
