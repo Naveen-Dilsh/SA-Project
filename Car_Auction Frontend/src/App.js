@@ -19,6 +19,12 @@ import Profile from './Components/User/Profile/Profile';
 import AuctionHis from './Components/User/AuctionHistory/AuctionHis';
 import ActiveBid from './Components/User/ActiveBid/ActiveBid';
 import AuctionListings from './Components/User/CarListing/Car_Listing';
+import CarDetails from './Components/Commoin/CarDetails/CarDetails';
+import Admin from './Components/Admin/Admin';
+import AddCar from './Components/Admin/AddCar';
+import AddBid from './Components/Admin/AddBid';
+
+<ToastContainer position="top-right" autoClose={3000} />
 
 
 function App() {
@@ -42,12 +48,18 @@ function App() {
           <Route path="/" element={<Home/>}/>
           <Route path="/login" element={<Login/>} />
           <Route path='/auction-listings' element={<AuctionListings/>}/>
+          <Route path="/bid-details/:bidId" element={<CarDetails/>} />
 
 
           {/* Route for user */}
           <Route path='/user-profile' element={<Profile/>}/>
           <Route path='/auction-history' element={ <AuctionHis/>}/>
           <Route path='/active-bids' element={ <ActiveBid/>}/>
+
+           {/* AddCar and AddBid Routes */}
+          <Route path='/admin' element={<PrivateRoute role="Admin"><Admin/></PrivateRoute>} />
+          <Route path="/add-car" element={<PrivateRoute role="Admin"><AddCar/></PrivateRoute>} />
+          <Route path="/add-bid" element={<PrivateRoute roles="Admin"><AddBid/></PrivateRoute>} />
       
 
           {/* Route for main Admin */}
