@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -102,8 +103,11 @@ export default function CarDetails() {
     setIsWishlisted(!isWishlisted);
   };
 
+
+
   const toggleEngine = () => setIsEngineOpen(!isEngineOpen);
   const toggleSuspension = () => setIsSuspensionOpen(!isSuspensionOpen);
+
 
   const handleBidSubmit = async () => {
     const bidAmount = parseFloat(newBid);
@@ -185,10 +189,13 @@ export default function CarDetails() {
             <img
               src={bidData.imageUrl || bmwImage}
               alt={`${bidData.brand} ${bidData.model}`}
+
+  
               className="object-contain h-full w-full"
               style={{ border: 'none' }}
             />
           </div>
+
 
           <h2 className="text-lg text-center mb-2">Auction ends in:</h2>
           <div className="mt-2 bg-white p-2 border max-w-[300px] mx-auto border-black">
@@ -196,17 +203,22 @@ export default function CarDetails() {
               <div className="flex-1">
                 <p className="text-4xl font-bold border-r border-black">
                   {remainingTime?.days.toString().padStart(2, '0') ?? '00'}
+
+
                 </p>
                 <p className="text-sm">Days</p>
               </div>
               <div className="flex-1">
                 <p className="text-4xl font-bold border-r border-black">
+
                   {remainingTime?.hours.toString().padStart(2, '0') ?? '00'}
+
                 </p>
                 <p className="text-sm">Hours</p>
               </div>
               <div className="flex-1">
                 <p className="text-4xl font-bold border-r border-black">
+
                   {remainingTime?.minutes.toString().padStart(2, '0') ?? '00'}
                 </p>
                 <p className="text-sm">Mins</p>
@@ -214,12 +226,14 @@ export default function CarDetails() {
               <div className="flex-1">
                 <p className="text-4xl font-bold">
                   {remainingTime?.seconds.toString().padStart(2, '0') ?? '00'}
+
                 </p>
                 <p className="text-sm">Secs</p>
               </div>
             </div>
           </div>
         </div>
+
 
         <div>
           <div className="bg-gray-200 p-6 rounded-lg" style={{ height: '380px', overflow: 'auto' }}>
@@ -289,9 +303,11 @@ export default function CarDetails() {
                 <span className="text-black text-sm">Add to wishlist</span>
                 <span className="text-black text-3xl">{isWishlisted ? '♥' : '♡'}</span>
               </button>
+
             </div>
           </div>
         </div>
+
 
         <div className="lg:col-start-2 lg:row-start-2 bg-white p-4">
           <h2 className="text-2xl font-bold mb-4 text-center">Notable features</h2>
@@ -304,6 +320,7 @@ export default function CarDetails() {
           </div>
           <hr className="border-black" /> 
 
+
           <div className="mt-4">
             <button
               className="font-semibold flex items-center justify-between w-full bg-white p-2 rounded-md"
@@ -313,7 +330,9 @@ export default function CarDetails() {
               <img
                 src={isEngineOpen ? upArrow : downArrow}
                 alt="toggle"
+
                 className="w-4 h-4"
+
               />
             </button>
             {isEngineOpen && (
@@ -325,6 +344,7 @@ export default function CarDetails() {
             )}
           </div>
           <hr className="border-black" /> 
+
 
           <div className="mt-4 bg-white">
             <button
@@ -350,4 +370,6 @@ export default function CarDetails() {
       </div>
     </div>
   );
+
 }
+

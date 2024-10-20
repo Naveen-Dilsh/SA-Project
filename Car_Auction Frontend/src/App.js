@@ -26,6 +26,7 @@ import AddBid from './Components/Admin/AddBid';
 
 <ToastContainer position="top-right" autoClose={3000} />
 
+
 function App() {
   return (
     <Router>
