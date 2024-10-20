@@ -1,6 +1,9 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './Context/AuthContext';
 import PrivateRoute from './Utils/PrivateRoute';
 
@@ -13,16 +16,27 @@ import AdminReq from './Components/MainAdmin/AdminReq';
 import AllAdmins from './Components/MainAdmin/AllAdmins';
 import RejectedAdmins from './Components/MainAdmin/RejectedAdmins';
 
-
 function App() {
   return (
     <Router>
       <AuthProvider>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
         <Navbar/>
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/login" element={<Login/>} />
-        
+          
           {/* Route for main Admin */}
           <Route path='/mainadmin' element={<PrivateRoute role="MainAdmin"><MainAdmin/></PrivateRoute>}/>
           <Route path='/admin-req' element={<PrivateRoute role="MainAdmin"><AdminReq/></PrivateRoute>}/>

@@ -1,14 +1,26 @@
 import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import logo from '../Pictures/logo.png';
-import { Link } from "react-router-dom";
 import AuthContext from '../../../Context/AuthContext';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, logoutUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      toast.success('Logged out successfully!');
+      navigate('/');
+    } catch (error) {
+      toast.error('Logout failed. Please try again.');
+    }
   };
 
   return (
@@ -104,7 +116,7 @@ const Navbar = () => {
                 </>
               ) : (
                 <button 
-                  onClick={logoutUser} 
+                  onClick={handleLogout} 
                   className="px-3 py-2 text-sm font-medium text-white no-underline bg-black hover:bg-gray-700"
                 >
                   Log out
@@ -169,14 +181,25 @@ const Navbar = () => {
               Contact Us
             </button>
             <div className="flex px-3 py-2 space-x-2">
-              <button className="block px-3 py-2 text-sm font-medium text-black border border-black rounded-md">
-                Sign in
-              </button>
-              <Link to="/login">
-                <button className="block px-3 py-2 text-sm font-medium text-white bg-black rounded-md">
-                  Log in
+              {!user ? (
+                <>
+                  <button className="block px-3 py-2 text-sm font-medium text-black border border-black rounded-md">
+                    Sign in
+                  </button>
+                  <Link to="/login">
+                    <button className="block px-3 py-2 text-sm font-medium text-white bg-black rounded-md">
+                      Log in
+                    </button>
+                  </Link>
+                </>
+              ) : (
+                <button 
+                  onClick={handleLogout}
+                  className="block px-3 py-2 text-sm font-medium text-white bg-black rounded-md"
+                >
+                  Log out
                 </button>
-              </Link>
+              )}
             </div>
           </div>
         )}
