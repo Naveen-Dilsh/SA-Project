@@ -73,7 +73,7 @@ namespace Car_Auction_Backend.Services
 		public async Task SendHighestBidderNotification(User user, Bid bid)
 		{
 			var carImageUrl = bid.Car?.ImageUrl; // Get the image URL from the Car associated with the Bid
-			var payNowLink = $"http://localhost:3000/paynow/{bid.BidId}"; // The link to the PayNow component with bidId
+			var payNowLink = $"http://localhost:3000/notification/{bid.BidId}"; // The link to the PayNow component with bidId
 
 			var mailMessage = new MailMessage
 			{

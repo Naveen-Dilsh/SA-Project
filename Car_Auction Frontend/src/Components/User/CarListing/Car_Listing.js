@@ -5,8 +5,7 @@ import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartOutline } from '@fortawesome/free-regular-svg-icons';
 import { Search } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 const AuctionListings = () => {
   const [filters, setFilters] = useState({
@@ -21,16 +20,6 @@ const AuctionListings = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Toast configuration object
-  const toastConfig = {
-    position: "top-center", // You can change this to any position you want
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true
-  };
-
   useEffect(() => {
     fetchCarListings();
     fetchUserWishlist();
@@ -44,12 +33,7 @@ const AuctionListings = () => {
       setFilteredListings(response.data);
     } catch (error) {
       console.error('Error fetching car listings:', error);
-      toast.error('Failed to fetch car listings', {
-        ...toastConfig,
-        className: 'bg-danger text-white',
-        bodyClassName: 'text-white',
-        progressClassName: 'bg-white'
-      });
+      toast.error('Failed to fetch car listings');
     } finally {
       setIsLoading(false);
     }
@@ -61,12 +45,7 @@ const AuctionListings = () => {
       setWishlist(response.data);
     } catch (error) {
       console.error('Error fetching user wishlist:', error);
-      toast.error('Failed to fetch wishlist', {
-        ...toastConfig,
-        className: 'bg-danger text-white',
-        bodyClassName: 'text-white',
-        progressClassName: 'bg-white'
-      });
+      toast.error('Failed to fetch wishlist');
     }
   };
 
@@ -95,30 +74,15 @@ const AuctionListings = () => {
       if (wishlist.includes(carId)) {
         await axios.delete(`https://localhost:7021/api/User/wishlist/${carId}`);
         setWishlist(prev => prev.filter(id => id !== carId));
-        toast.success('Removed from wishlist', {
-          ...toastConfig,
-          className: 'bg-success text-white',
-          bodyClassName: 'text-white',
-          progressClassName: 'bg-white'
-        });
+        toast.success('Removed from wishlist');
       } else {
         await axios.post('https://localhost:7021/api/User/wishlist', { carId });
         setWishlist(prev => [...prev, carId]);
-        toast.success('Added to wishlist', {
-          ...toastConfig,
-          className: 'bg-success text-white',
-          bodyClassName: 'text-white',
-          progressClassName: 'bg-white'
-        });
+        toast.success('Added to wishlist');
       }
     } catch (error) {
       console.error('Error updating wishlist:', error);
-      toast.error('Failed to update wishlist', {
-        ...toastConfig,
-        className: 'bg-danger text-white',
-        bodyClassName: 'text-white',
-        progressClassName: 'bg-white'
-      });
+      toast.error('Failed to update wishlist');
     }
   };
 
@@ -180,20 +144,6 @@ const AuctionListings = () => {
 
   return (
     <main className="container px-6 py-12 mx-auto">
-      {/* Toast Container */}
-      <ToastContainer
-        position="top-center" // Change this value to adjust position
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
-      
       <h1 className="text-4xl font-bold text-center">Auctions</h1>
       <p className="mt-2 mb-8 text-center text-gray-600">Browse through a wide selection of auction items.</p>
 

@@ -1,11 +1,9 @@
-
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { FaRegClock } from 'react-icons/fa';
 import { Modal } from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import bmwImage from './Images2/5th Car.png';
@@ -103,11 +101,8 @@ export default function CarDetails() {
     setIsWishlisted(!isWishlisted);
   };
 
-
-
   const toggleEngine = () => setIsEngineOpen(!isEngineOpen);
   const toggleSuspension = () => setIsSuspensionOpen(!isSuspensionOpen);
-
 
   const handleBidSubmit = async () => {
     const bidAmount = parseFloat(newBid);
@@ -144,20 +139,6 @@ export default function CarDetails() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Toast Container */}
-      <ToastContainer
-        position="top-center" // Change this value to adjust position
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
-      
       {/* Confirmation Modal */}
       <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)}>
         <Modal.Header closeButton>
@@ -189,13 +170,10 @@ export default function CarDetails() {
             <img
               src={bidData.imageUrl || bmwImage}
               alt={`${bidData.brand} ${bidData.model}`}
-
-  
               className="object-contain h-full w-full"
               style={{ border: 'none' }}
             />
           </div>
-
 
           <h2 className="text-lg text-center mb-2">Auction ends in:</h2>
           <div className="mt-2 bg-white p-2 border max-w-[300px] mx-auto border-black">
@@ -203,22 +181,17 @@ export default function CarDetails() {
               <div className="flex-1">
                 <p className="text-4xl font-bold border-r border-black">
                   {remainingTime?.days.toString().padStart(2, '0') ?? '00'}
-
-
                 </p>
                 <p className="text-sm">Days</p>
               </div>
               <div className="flex-1">
                 <p className="text-4xl font-bold border-r border-black">
-
                   {remainingTime?.hours.toString().padStart(2, '0') ?? '00'}
-
                 </p>
                 <p className="text-sm">Hours</p>
               </div>
               <div className="flex-1">
                 <p className="text-4xl font-bold border-r border-black">
-
                   {remainingTime?.minutes.toString().padStart(2, '0') ?? '00'}
                 </p>
                 <p className="text-sm">Mins</p>
@@ -226,7 +199,6 @@ export default function CarDetails() {
               <div className="flex-1">
                 <p className="text-4xl font-bold">
                   {remainingTime?.seconds.toString().padStart(2, '0') ?? '00'}
-
                 </p>
                 <p className="text-sm">Secs</p>
               </div>
@@ -359,7 +331,7 @@ export default function CarDetails() {
               />
             </button>
             {isSuspensionOpen && (
-              <ul className="list pl-2 mt-0 text-sm mb-6 text-sm">
+              <ul className="list pl-2 mt-0 text-sm mb-6">
                 <li>Double Wishbone Suspension Type - Front (Cont.)</li>
                 <li>Multi-Link Suspension Type - Rear (Cont.)</li>
               </ul>
@@ -370,6 +342,6 @@ export default function CarDetails() {
       </div>
     </div>
   );
-
 }
+
 
