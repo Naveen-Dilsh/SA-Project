@@ -23,6 +23,11 @@ import CarDetails from './Components/Commoin/CarDetails/CarDetails';
 import Admin from './Components/Admin/Admin';
 import AddCar from './Components/Admin/AddCar';
 import AddBid from './Components/Admin/AddBid';
+import NotificationPage from './Components/User/Notification/NotificationPage';
+import Paymentpage from './Components/User/PaymentPage/Paymentpage';
+import ThankyouPage from './Components/User/PaymentConformation/ThakyouPage';
+import ContactUs from './Components/User/ContactUs/Contact_Us';
+
 
 <ToastContainer position="top-right" autoClose={3000} />
 
@@ -49,7 +54,10 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path='/auction-listings' element={<AuctionListings/>}/>
           <Route path="/bid-details/:bidId" element={<CarDetails/>} />
-
+          <Route path="/notification/:bidId" element={<NotificationPage/>}/>
+          <Route path="/paymentpage/:bidId" element={<Paymentpage/>}/>
+          <Route path="/thank-you" element={<ThankyouPage/>}/>
+          <Route path="/contact-us" element={<ContactUs/>}/>
 
           {/* Route for user */}
           <Route path='/user-profile' element={<Profile/>}/>

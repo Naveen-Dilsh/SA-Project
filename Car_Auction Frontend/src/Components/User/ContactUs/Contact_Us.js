@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 
 
@@ -7,36 +5,6 @@ import React from 'react';
 const ContactUs = () => {
   return (
     <div className="min-h-screen bg-white rounded-md shadow-md">
-
-  {/* Header */} 
-
-<header className="py-4 bg-white border-b border-blue-500 shadow-md">
-  <div className="container flex items-center justify-between px-6 py-4 mx-auto">
-   
-    <img src="/logo.png" alt="Logo" className="h-24" />
-    <a href="#" className="text-gray-600">Home</a>
-    <div className="flex items-center px-4 py-2 space-x-2 bg-gray-100 rounded-full">
-      <input type="text" placeholder="Search" className="text-gray-600 placeholder-gray-500 bg-transparent outline-none" />
-      <button className="text-gray-600"><i className="fas fa-search"></i></button>
-    </div>
-
-    
-    <nav className="space-x-6">
-      <a href="#" className="text-gray-600">Browse Cars</a>
-      <a href="#" className="text-gray-600">My Auctions</a>
-      <a href="#" className="text-gray-600">About Us</a>
-      <a href="#" className="font-bold text-black">Contact Us</a>
-    </nav>
-
-    
-    <div className="flex items-center space-x-4">
-      <button className="text-gray-600"><i className="far fa-bell"></i></button>
-      <button className="text-gray-600"><i className="far fa-user-circle"></i></button>
-      <button className="px-4 py-2 text-white bg-black rounded">Logout</button>
-    </div>
-  </div>
-</header>
-
 
 {/* Hero Section */} 
 
