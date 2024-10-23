@@ -5,7 +5,7 @@ import AuthContext from "../../../Context/AuthContext";
 const HeroSection = () => {
       const {user} = useContext(AuthContext);
   return (
-    <section className="py-10 px-10 bg-white lg:py-10">
+    <section className="px-10 py-20 bg-white lg:py-24 ">
       <div className="container mx-auto">
         <div className="flex flex-col items-center lg:flex-row">
           {/*------Heading Section------*/}
