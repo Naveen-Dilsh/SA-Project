@@ -113,7 +113,7 @@ namespace Car_Auction_Backend.Services
 			}
 
 			user.IsEmailVerified = true;
-			user.EmailVerificationToken = null;
+		//	user.EmailVerificationToken = null;
 			await _context.SaveChangesAsync();
 			return true;
 		}

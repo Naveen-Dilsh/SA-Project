@@ -118,7 +118,7 @@ namespace Car_Auction_Backend.Controllers
 
 			// Select the car details (ImageUrl, Brand, Model) from the cars associated with the bids
 			var carDetails = bidsWithCars
-				.Where(bid => bid.Car != null && !string.IsNullOrEmpty(bid.Car.ImageUrl)) // Ensure Car is not null and ImageUrl is valid
+				.Where(bid => bid.Car != null && !string.IsNullOrEmpty(bid.Car.ImageUrl) && bid.Bstatus == "Ongoing" ) // Ensure Car is not null and ImageUrl is valid
 				.Select(bid => new CarInfoDto
 				{
 					BidId = bid.BidId,
