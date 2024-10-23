@@ -41,7 +41,7 @@ export const AuthProvider = ({children}) =>{
                 navigate('/'); // Default route for regular users
             }
         }else{
-            alert("something went wrong!")
+            alert("Invalid password or UserName!")
         }
     }
 
