@@ -10,7 +10,6 @@ import PrivateRoute from './Utils/PrivateRoute';
 import Navbar from './Components/Commoin/Navbar/Navbar';
 import Footer from './Components/Commoin/Footer/Footer';
 import { Home } from './Components/Commoin/Home/Home';
-import Login from './Components/Commoin/Login/Login';
 import MainAdmin from './Components/MainAdmin/MainAdmin';
 import AdminReq from './Components/MainAdmin/AdminReq';
 import AllAdmins from './Components/MainAdmin/AllAdmins';
@@ -27,6 +26,8 @@ import NotificationPage from './Components/User/Notification/NotificationPage';
 import Paymentpage from './Components/User/PaymentPage/Paymentpage';
 import ThankyouPage from './Components/User/PaymentConformation/ThakyouPage';
 import ContactUs from './Components/User/ContactUs/Contact_Us';
+import SignInSignUp from './Components/Commoin/Loginpage/SignInSignUp';
+import VerifyEmail from './Components/User/VerifyEmail/VerifyEmail';
 
 
 <ToastContainer position="top-right" autoClose={3000} />
@@ -51,7 +52,7 @@ function App() {
         <Navbar/>
         <Routes>
           <Route path="/" element={<Home/>}/>
-          <Route path="/login" element={<Login/>} />
+          <Route path="/login" element={<SignInSignUp/>} />
           <Route path='/auction-listings' element={<AuctionListings/>}/>
           <Route path="/bid-details/:bidId" element={<CarDetails/>} />
           <Route path="/notification/:bidId" element={<NotificationPage/>}/>
@@ -60,6 +61,7 @@ function App() {
           <Route path="/contact-us" element={<ContactUs/>}/>
 
           {/* Route for user */}
+          <Route path="/verify-email" element={<VerifyEmail />} />
           <Route path='/user-profile' element={<Profile/>}/>
           <Route path='/auction-history' element={ <AuctionHis/>}/>
           <Route path='/active-bids' element={ <ActiveBid/>}/>
