@@ -1,9 +1,11 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Sidebar from '../SideBar/SideBar';
 import { Search, Calendar, Filter } from "lucide-react";
+import AuthContext from '../../../Context/AuthContext';
 
 const ActiveBid = () => {
+  const {user} = useContext(AuthContext);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [dateRange, setDateRange] = useState('');
@@ -15,7 +17,8 @@ const ActiveBid = () => {
   useEffect(() => {
     const fetchActiveBids = async () => {
       try {
-        const userId = 29;
+        const userId = user.Id;
+        console.log(userId);
         const response = await fetch(`https://localhost:7021/api/User/${userId}/ActiveAuction`);
         const result = await response.json();
         
