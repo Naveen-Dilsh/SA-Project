@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
@@ -7,6 +7,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { AuthProvider } from './Context/AuthContext';
 import PrivateRoute from './Utils/PrivateRoute';
 
+// Components
 import Navbar from './Components/Commoin/Navbar/Navbar';
 import Footer from './Components/Commoin/Footer/Footer';
 import { Home } from './Components/Commoin/Home/Home';
@@ -29,9 +30,20 @@ import ContactUs from './Components/User/ContactUs/Contact_Us';
 import SignInSignUp from './Components/Commoin/Loginpage/SignInSignUp';
 import VerifyEmail from './Components/User/VerifyEmail/VerifyEmail';
 
+// Layout Components
+const MainLayout = () => (
+  <>
+    <Navbar />
+    <Outlet />
+    <Footer />
+  </>
+);
 
-<ToastContainer position="top-right" autoClose={3000} />
-
+const AdminLayout = () => (
+  <>
+    <Outlet />
+  </>
+);
 
 function App() {
   return (
@@ -49,36 +61,85 @@ function App() {
           pauseOnHover
           theme="colored"
         />
-        <Navbar/>
         <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/login" element={<SignInSignUp/>} />
-          <Route path='/auction-listings' element={<AuctionListings/>}/>
-          <Route path="/bid-details/:bidId" element={<CarDetails/>} />
-          <Route path="/notification/:bidId" element={<NotificationPage/>}/>
-          <Route path="/paymentpage/:bidId" element={<Paymentpage/>}/>
-          <Route path="/thank-you" element={<ThankyouPage/>}/>
-          <Route path="/contact-us" element={<ContactUs/>}/>
+          {/* Common and User Routes - With Navbar & Footer */}
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<SignInSignUp />} />
+            <Route path="/auction-listings" element={<AuctionListings />} />
+            <Route path="/bid-details/:bidId" element={<CarDetails />} />
+            <Route path="/notification/:bidId" element={<NotificationPage />} />
+            <Route path="/paymentpage/:bidId" element={<Paymentpage />} />
+            <Route path="/thank-you" element={<ThankyouPage />} />
+            <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/verify-email" element={<VerifyEmail />} />
+            <Route path="/user-profile" element={<Profile />} />
+            <Route path="/auction-history" element={<AuctionHis />} />
+            <Route path="/active-bids" element={<ActiveBid />} />
+          </Route>
 
-          {/* Route for user */}
-          <Route path="/verify-email" element={<VerifyEmail />} />
-          <Route path='/user-profile' element={<Profile/>}/>
-          <Route path='/auction-history' element={ <AuctionHis/>}/>
-          <Route path='/active-bids' element={ <ActiveBid/>}/>
+          {/* Admin Routes - Without Navbar & Footer */}
+          <Route element={<AdminLayout />}>
+            <Route 
+              path="/admin" 
+              element={
+                <PrivateRoute role="Admin">
+                  <Admin />
+                </PrivateRoute>
+              } 
+            />
+            <Route 
+              path="/add-car" 
+              element={
+                <PrivateRoute role="Admin">
+                  <AddCar />
+                </PrivateRoute>
+              } 
+            />
+            <Route 
+              path="/add-bid" 
+              element={
+                <PrivateRoute role="Admin">
+                  <AddBid />
+                </PrivateRoute>
+              } 
+            />
 
-           {/* AddCar and AddBid Routes */}
-          <Route path='/admin' element={<PrivateRoute role="Admin"><Admin/></PrivateRoute>} />
-          <Route path="/add-car" element={<PrivateRoute role="Admin"><AddCar/></PrivateRoute>} />
-          <Route path="/add-bid" element={<PrivateRoute roles="Admin"><AddBid/></PrivateRoute>} />
-      
-
-          {/* Route for main Admin */}
-          <Route path='/mainadmin' element={<PrivateRoute role="MainAdmin"><MainAdmin/></PrivateRoute>}/>
-          <Route path='/admin-req' element={<PrivateRoute role="MainAdmin"><AdminReq/></PrivateRoute>}/>
-          <Route path='/all-admins' element={<PrivateRoute role="MainAdmin"><AllAdmins/></PrivateRoute>}/>
-          <Route path='/rej-admins' element={<PrivateRoute role="MainAdmin"><RejectedAdmins/></PrivateRoute>}/>
+            {/* Main Admin Routes */}
+            <Route 
+              path="/mainadmin" 
+              element={
+                <PrivateRoute role="MainAdmin">
+                  <MainAdmin />
+                </PrivateRoute>
+              }
+            />
+            <Route 
+              path="/admin-req" 
+              element={
+                <PrivateRoute role="MainAdmin">
+                  <AdminReq />
+                </PrivateRoute>
+              }
+            />
+            <Route 
+              path="/all-admins" 
+              element={
+                <PrivateRoute role="MainAdmin">
+                  <AllAdmins />
+                </PrivateRoute>
+              }
+            />
+            <Route 
+              path="/rej-admins" 
+              element={
+                <PrivateRoute role="MainAdmin">
+                  <RejectedAdmins />
+                </PrivateRoute>
+              }
+            />
+          </Route>
         </Routes>
-        <Footer/>
       </AuthProvider>
     </Router>
   );
