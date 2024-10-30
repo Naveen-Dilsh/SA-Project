@@ -17,6 +17,11 @@ const calculateRemainingTime = (endTime) => {
   const now = new Date().getTime();
   const difference = end - now;
 
+  // If difference is negative or zero, return all zeros
+  if (difference <= 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0, total: 0 };
+  }
+
   const days = Math.floor(difference / (1000 * 60 * 60 * 24));
   const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
   const minutes = Math.floor((difference / 1000 / 60) % 60);
@@ -78,6 +83,7 @@ export default function CarDetails() {
         setRemainingTime(time);
         
         if (time.total <= 0) {
+          setRemainingTime({ days: 0, hours: 0, minutes: 0, seconds: 0, total: 0 });
           setAuctionEnded(true);
           fetchBidStatus();
           clearInterval(interval);
@@ -275,11 +281,9 @@ export default function CarDetails() {
                 <span className="text-black text-sm">Add to wishlist</span>
                 <span className="text-black text-3xl">{isWishlisted ? '♥' : '♡'}</span>
               </button>
-
             </div>
           </div>
         </div>
-
 
         <div className="lg:col-start-2 lg:row-start-2 bg-white p-4">
           <h2 className="text-2xl font-bold mb-4 text-center">Notable features</h2>
@@ -292,7 +296,6 @@ export default function CarDetails() {
           </div>
           <hr className="border-black" /> 
 
-
           <div className="mt-4">
             <button
               className="font-semibold flex items-center justify-between w-full bg-white p-2 rounded-md"
@@ -302,9 +305,7 @@ export default function CarDetails() {
               <img
                 src={isEngineOpen ? upArrow : downArrow}
                 alt="toggle"
-
                 className="w-4 h-4"
-
               />
             </button>
             {isEngineOpen && (
@@ -316,7 +317,6 @@ export default function CarDetails() {
             )}
           </div>
           <hr className="border-black" /> 
-
 
           <div className="mt-4 bg-white">
             <button
@@ -343,5 +343,3 @@ export default function CarDetails() {
     </div>
   );
 }
-
-

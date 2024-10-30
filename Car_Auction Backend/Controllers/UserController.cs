@@ -201,5 +201,77 @@ namespace Car_Auction_Backend.Controllers
 			}
 		}
 
+
+		[HttpGet("{userId}")]
+		public async Task<ActionResult<User>> GetUser(int userId)
+		{
+			try
+			{
+				var user = await _context.users
+					.Select(u => new
+					{
+						u.UId,
+						u.UName,
+						u.UEmail,
+						u.Address,
+						u.C_Number,
+						// Excluding sensitive information like password
+					})
+					.FirstOrDefaultAsync(u => u.UId == userId);
+
+				if (user == null)
+				{
+					return NotFound(new { message = "User not found" });
+				}
+
+				return Ok(new { message = "User retrieved successfully", data = user });
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new { message = "An error occurred while retrieving user", error = ex.Message });
+			}
+		}
+
+		[HttpPut("{userId}")]
+		public async Task<ActionResult<User>> UpdateUser(int userId, User updatedUser)
+		{
+			if (userId != updatedUser.UId)
+			{
+				return BadRequest(new { message = "User ID mismatch" });
+			}
+
+			try
+			{
+				var user = await _context.users.FindAsync(userId);
+				if (user == null)
+				{
+					return NotFound(new { message = "User not found" });
+				}
+
+				// Update only allowed fields
+				user.UName = updatedUser.UName;
+				user.Address = updatedUser.Address;
+				user.C_Number = updatedUser.C_Number;
+
+				// If you want to update email, you might want to trigger email verification again
+				if (user.UEmail != updatedUser.UEmail)
+				{
+					user.UEmail = updatedUser.UEmail;
+					user.IsEmailVerified = false;
+					user.EmailVerificationToken = Guid.NewGuid().ToString(); // Generate new verification token
+																			 // You might want to send a new verification email here
+				}
+
+				_context.Entry(user).State = EntityState.Modified;
+				await _context.SaveChangesAsync();
+
+				return Ok(new { message = "User updated successfully", data = user });
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new { message = "An error occurred while updating user", error = ex.Message });
+			}
+		}
+
 	}
 }

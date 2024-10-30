@@ -45,7 +45,7 @@ const AuctionListings = () => {
       setWishlist(response.data);
     } catch (error) {
       console.error('Error fetching user wishlist:', error);
-      toast.error('Failed to fetch wishlist');
+    
     }
   };
 
@@ -82,7 +82,6 @@ const AuctionListings = () => {
       }
     } catch (error) {
       console.error('Error updating wishlist:', error);
-      toast.error('Failed to update wishlist');
     }
   };
 
