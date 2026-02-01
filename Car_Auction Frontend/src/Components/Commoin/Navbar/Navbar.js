@@ -6,9 +6,10 @@ import AuthContext from '../../../Context/AuthContext';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const { user, logoutUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  
+
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
   };
@@ -23,14 +24,29 @@ const Navbar = () => {
     }
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/auction-listings?search=${encodeURIComponent(searchQuery)}`);
+      setSearchQuery('');
+      setMenuOpen(false); // Close mobile menu after search
+    }
+  };
+
   const SearchBar = () => (
-    <div className="relative">
+    <form onSubmit={handleSearch} className="relative">
       <input
         type="text"
         className="w-full px-3 py-1 border border-black rounded-full"
-        placeholder="Search"
+        placeholder="Search cars..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
       />
-      <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+      <button
+        type="submit"
+        className="absolute inset-y-0 right-0 flex items-center pr-3 bg-transparent border-none cursor-pointer"
+        aria-label="Search"
+      >
         <svg
           className="w-5 h-5 text-gray-500"
           xmlns="http://www.w3.org/2000/svg"
@@ -43,17 +59,19 @@ const Navbar = () => {
             clipRule="evenodd"
           />
         </svg>
-      </div>
-    </div>
+      </button>
+    </form>
   );
 
   const AuthButtons = () => (
     <>
       {!user ? (
         <>
-          <button className="px-3 py-2 text-sm font-medium text-black no-underline border border-black hover:bg-gray-100">
-            Sign in
-          </button>
+          <Link to="/login">
+            <button className="px-3 py-2 text-sm font-medium text-black no-underline border border-black hover:bg-gray-100">
+              Sign in
+            </button>
+          </Link>
           <Link to="/login">
             <button className="px-3 py-2 text-sm font-medium text-white no-underline bg-black hover:bg-gray-700">
               Log in
@@ -67,8 +85,8 @@ const Navbar = () => {
               User
             </button>
           </Link>
-          <button 
-            onClick={handleLogout} 
+          <button
+            onClick={handleLogout}
             className="px-3 py-2 text-sm font-medium text-white no-underline bg-black hover:bg-gray-700"
           >
             Log out
@@ -108,17 +126,19 @@ const Navbar = () => {
               </div>
 
               <Link to="/auction-listings">
-              <button className="px-3 py-2 text-sm font-medium text-gray-700 no-underline">
-                Browse Cars
-              </button>
+                <button className="px-3 py-2 text-sm font-medium text-gray-700 no-underline">
+                  Browse Cars
+                </button>
               </Link>
-              <button className="px-3 py-2 text-sm font-medium text-gray-700 no-underline">
-                About Us
-              </button>
-              <Link to ="/contact-us">
-              <button className="px-3 py-2 text-sm font-medium text-gray-700 no-underline">
-                Contact Us
-              </button>
+              <Link to="/">
+                <button className="px-3 py-2 text-sm font-medium text-gray-700 no-underline">
+                  About Us
+                </button>
+              </Link>
+              <Link to="/contact-us">
+                <button className="px-3 py-2 text-sm font-medium text-gray-700 no-underline">
+                  Contact Us
+                </button>
               </Link>
             </div>
 
@@ -154,15 +174,21 @@ const Navbar = () => {
                 Home
               </button>
             </Link>
-            <button className="block px-3 py-2 text-sm font-medium text-gray-700 rounded-md">
-              Browse Cars
-            </button>
-            <button className="block px-3 py-2 text-sm font-medium text-gray-700 rounded-md">
-              About Us
-            </button>
-            <button className="block px-3 py-2 text-sm font-medium text-gray-700 rounded-md">
-              Contact Us
-            </button>
+            <Link to="/auction-listings">
+              <button className="block px-3 py-2 text-sm font-medium text-gray-700 rounded-md">
+                Browse Cars
+              </button>
+            </Link>
+            <Link to="/">
+              <button className="block px-3 py-2 text-sm font-medium text-gray-700 rounded-md">
+                About Us
+              </button>
+            </Link>
+            <Link to="/contact-us">
+              <button className="block px-3 py-2 text-sm font-medium text-gray-700 rounded-md">
+                Contact Us
+              </button>
+            </Link>
             <div className="flex px-3 py-2 space-x-2">
               <AuthButtons />
             </div>
