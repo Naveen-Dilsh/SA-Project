@@ -21,7 +21,7 @@ export const AuthProvider = ({children}) => {
         
         try {
             console.log('form submitted');
-            let response = await fetch('https://localhost:7021/api/Auth/login', {
+            let response = await fetch('/api/Auth/login', {
                 method: 'Post',
                 headers: {
                     'Content-Type': 'application/json'

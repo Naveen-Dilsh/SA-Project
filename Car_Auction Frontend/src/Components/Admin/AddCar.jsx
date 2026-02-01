@@ -44,7 +44,7 @@ const AddCar = ({ onCarAdded }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://localhost:7021/api/Car/Add Car', carData);
+            const response = await axios.post('/api/Car/Add Car', carData);
             alert('Car added Successfully');
             
             // Pass the complete car data to parent component

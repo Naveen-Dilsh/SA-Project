@@ -17,7 +17,7 @@ const AuctionHis = () => {
     const fetchAuctionHistory = async () => {
       try {
         const userId = user.Id;
-        const response = await fetch(`https://localhost:7021/api/User/${userId}/auction-history`);
+        const response = await fetch(`/api/User/${userId}/auction-history`);
         const result = await response.json();
         
         if (response.ok) {

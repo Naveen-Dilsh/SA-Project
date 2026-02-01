@@ -20,7 +20,7 @@ const OngoingBids = () => {
       try {
         const adminId = user.nameid ;
         console.log(adminId);
-        const response = await axios.get(`https://localhost:7021/api/Admin/${adminId}/car-bid-details`);
+        const response = await axios.get(`/api/Admin/${adminId}/car-bid-details`);
         setBids(response.data);
       } catch (error) {
         console.error('Error fetching bids:', error);

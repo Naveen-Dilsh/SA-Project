@@ -19,10 +19,10 @@ const Paymentpage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const carResponse = await axios.get(`https://localhost:7021/api/Bid/${bidId}/car`);
+        const carResponse = await axios.get(`/api/Bid/${bidId}/car`);
         setCarDetails(carResponse.data);
         
-        const amountResponse = await axios.get(`https://localhost:7021/api/Payment/amount/${bidId}`);
+        const amountResponse = await axios.get(`/api/Payment/amount/${bidId}`);
         setAmount(amountResponse.data);
       } catch (err) {
         setError("Error fetching data: " + err.message);
@@ -41,7 +41,7 @@ const Paymentpage = () => {
 
   const createOrder = async () => {
     try {
-      const response = await fetch("https://localhost:7021/api/CheckOut/CreateOrder", {
+      const response = await fetch("/api/CheckOut/CreateOrder", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount: amount.paymentAmount })
@@ -61,7 +61,7 @@ const Paymentpage = () => {
 
   const onApprove = async (data) => {
     try {
-      const response = await fetch("https://localhost:7021/api/CheckOut/CompleteOrder", {
+      const response = await fetch("/api/CheckOut/CompleteOrder", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ orderID: data.orderID })

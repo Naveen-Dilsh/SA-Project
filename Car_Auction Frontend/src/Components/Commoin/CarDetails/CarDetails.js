@@ -47,7 +47,7 @@ export default function CarDetails() {
 
   const fetchBidStatus = async () => {
     try {
-      const response = await axios.get(`https://localhost:7021/api/BidSub/finalize/${bidId}`);
+      const response = await axios.get(`/api/BidSub/finalize/${bidId}`);
       const { status, winningBid } = response.data;
       setAuctionEnded(status === 'Closed' || status === 'Sold');
       if (winningBid) {
@@ -61,10 +61,10 @@ export default function CarDetails() {
   useEffect(() => {
     const fetchBidDetails = async () => {
       try {
-        const response = await axios.get(`https://localhost:7021/api/Bid/Bid-details/${bidId}`);
+        const response = await axios.get(`/api/Bid/Bid-details/${bidId}`);
         setBidData(response.data);
         
-        const highestBidResponse = await axios.get(`https://localhost:7021/api/BidSub/highest-bid/${bidId}`);
+        const highestBidResponse = await axios.get(`/api/BidSub/highest-bid/${bidId}`);
         setHighestBid(highestBidResponse.data.highestBid);
         
         await fetchBidStatus();
@@ -119,7 +119,7 @@ export default function CarDetails() {
     }
 
     try {
-      await axios.post(`https://localhost:7021/api/BidSub`, {
+      await axios.post(`/api/BidSub`, {
         bidID: bidId,
         amount: bidAmount,
         userId: user.Id,
@@ -130,7 +130,7 @@ export default function CarDetails() {
       setNewBid('');
       setShowConfirmModal(false);
 
-      const highestBidResponse = await axios.get(`https://localhost:7021/api/BidSub/highest-bid/${bidId}`);
+      const highestBidResponse = await axios.get(`/api/BidSub/highest-bid/${bidId}`);
       setHighestBid(highestBidResponse.data.highestBid);
     } catch (error) {
       console.error('Error submitting bid:', error);

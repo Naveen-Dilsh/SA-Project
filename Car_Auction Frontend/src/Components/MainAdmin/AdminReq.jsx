@@ -14,7 +14,7 @@ const AdminReq = () => {
     const fetchPendingAdmins = async () => {
         try {
             const token = JSON.parse(localStorage.getItem('authTokens')).accessToken;
-            const response = await axios.get('https://localhost:7021/api/MainAdmin/pending-admins', {
+            const response = await axios.get('/api/MainAdmin/pending-admins', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -30,7 +30,7 @@ const AdminReq = () => {
     const handleApprove = async (adminId) => {
         try {
             const token = JSON.parse(localStorage.getItem('authTokens')).accessToken;
-            await axios.post(`https://localhost:7021/api/MainAdmin/approve/${adminId}`, {}, {
+            await axios.post(`/api/MainAdmin/approve/${adminId}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -45,7 +45,7 @@ const AdminReq = () => {
     const handleReject = async (adminId) => {
         try {
             const token = JSON.parse(localStorage.getItem('authTokens')).accessToken;
-            await axios.post(`https://localhost:7021/api/MainAdmin/reject-admin/${adminId}`, {}, {
+            await axios.post(`/api/MainAdmin/reject-admin/${adminId}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

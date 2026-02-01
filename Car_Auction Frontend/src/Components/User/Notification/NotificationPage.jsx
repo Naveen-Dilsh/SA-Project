@@ -14,7 +14,7 @@ const NotificationPage = () => {
   useEffect(() => {
     const fetchCarDetails = async () => {
       try {
-        const response = await axios.get(`https://localhost:7021/api/Bid/${bidId}/car`);
+        const response = await axios.get(`/api/Bid/${bidId}/car`);
         setCarDetails(response.data);
         setLoading(false);
         toast.success('Congratulations! You won the auction!');
@@ -31,7 +31,7 @@ const NotificationPage = () => {
     try {
       console.log(bidId, user.Id);
       const response = await axios.post(
-        `https://localhost:7021/api/Payment/${bidId}/${user.Id}/AddPayment`,
+        `/api/Payment/${bidId}/${user.Id}/AddPayment`,
         {},
         {
           headers: {

@@ -17,7 +17,7 @@ export const AuthProvider = ({children}) =>{
     let loginUser = async(e) =>{
         e.preventDefault()
         console.log('form submited')
-        let response =await fetch('https://localhost:7021/api/Auth/login',{
+        let response =await fetch('/api/Auth/login',{
             method:'Post',
             headers:{
                 'Content-Type':'application/json'

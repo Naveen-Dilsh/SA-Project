@@ -28,7 +28,7 @@ const AuctionListings = () => {
   const fetchCarListings = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get('https://localhost:7021/api/Bid/all-bids-with-cars');
+      const response = await axios.get('/api/Bid/all-bids-with-cars');
       setCarListings(response.data);
       setFilteredListings(response.data);
     } catch (error) {
@@ -41,7 +41,7 @@ const AuctionListings = () => {
 
   const fetchUserWishlist = async () => {
     try {
-      const response = await axios.get('https://localhost:7021/api/User/wishlist');
+      const response = await axios.get('/api/User/wishlist');
       setWishlist(response.data);
     } catch (error) {
       console.error('Error fetching user wishlist:', error);
@@ -72,11 +72,11 @@ const AuctionListings = () => {
   const toggleWishlist = async (carId) => {
     try {
       if (wishlist.includes(carId)) {
-        await axios.delete(`https://localhost:7021/api/User/wishlist/${carId}`);
+        await axios.delete(`/api/User/wishlist/${carId}`);
         setWishlist(prev => prev.filter(id => id !== carId));
         toast.success('Removed from wishlist');
       } else {
-        await axios.post('https://localhost:7021/api/User/wishlist', { carId });
+        await axios.post('/api/User/wishlist', { carId });
         setWishlist(prev => [...prev, carId]);
         toast.success('Added to wishlist');
       }

@@ -14,7 +14,7 @@ const LatestAuctions = () => {
   useEffect(() => {
     const fetchAuctions = async () => {
       try {
-        const response = await axios.get('https://localhost:7021/api/Bid/car-details'); // Adjust the endpoint as needed
+        const response = await axios.get('/api/Bid/car-details'); // Adjust the endpoint as needed
         setAuctions(response.data); // Assuming your API returns an array of auction objects
         console.log(response.data)
       } catch (error) {

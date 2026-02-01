@@ -19,7 +19,7 @@ const ActiveBid = () => {
       try {
         const userId = user.Id;
         console.log(userId);
-        const response = await fetch(`https://localhost:7021/api/User/${userId}/ActiveAuction`);
+        const response = await fetch(`/api/User/${userId}/ActiveAuction`);
         const result = await response.json();
         
         if (response.ok) {

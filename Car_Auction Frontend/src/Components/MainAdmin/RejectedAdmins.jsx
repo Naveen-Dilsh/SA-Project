@@ -12,7 +12,7 @@ const RejectedAdmins = () => {
   const fetchRejectedAdmins = async () => {
     try {
         const token = JSON.parse(localStorage.getItem('authTokens')).accessToken;
-        const response = await axios.get('https://localhost:7021/api/MainAdmin/Rejected-admins', {
+        const response = await axios.get('/api/MainAdmin/Rejected-admins', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

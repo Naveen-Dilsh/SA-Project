@@ -16,7 +16,7 @@ const ManageAuction = () => {
         if (!adminId) {
           throw new Error('Admin ID not available');
         }
-        const response = await fetch(`https://localhost:7021/api/Admin/GetManage/${adminId}`);
+        const response = await fetch(`/api/Admin/GetManage/${adminId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch auction history');
         }
@@ -40,7 +40,7 @@ const ManageAuction = () => {
   const confirmEndAuction = async () => {
     try {
         console.log(selectedAuctionId);
-      const response = await fetch(`https://localhost:7021/api/Admin/EndAuction?adminId=${user.nameid}&bidId=${selectedAuctionId}`, {
+      const response = await fetch(`/api/Admin/EndAuction?adminId=${user.nameid}&bidId=${selectedAuctionId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

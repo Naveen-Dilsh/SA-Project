@@ -24,7 +24,7 @@ function Profile() {
     try {
       // Replace 1 with actual user ID from your auth system
       const userId = user.Id;
-      const response = await fetch(`https://localhost:7021/api/User/${userId}`);
+      const response = await fetch(`/api/User/${userId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch user data');
       }
@@ -51,7 +51,7 @@ function Profile() {
 
     try {
      const userID = user.Id;
-      const response = await fetch(`https://localhost:7021/api/User/${userID}`, {
+      const response = await fetch(`/api/User/${userID}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

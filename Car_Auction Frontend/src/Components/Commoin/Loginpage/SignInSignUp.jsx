@@ -42,7 +42,7 @@ const SignInSignUp = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('https://localhost:7021/api/Auth/register', formData);
+      const response = await axios.post('/api/Auth/register', formData);
       toast.success(response.data.Message || 'Registration successful!');
       setRightPanelActive(false);
       

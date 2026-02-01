@@ -12,7 +12,7 @@ const AllAdmins = () => {
   const fetchAdmins = async () => {
     try {
       const token = JSON.parse(localStorage.getItem('authTokens')).accessToken;
-            const response = await axios.get('https://localhost:7021/api/MainAdmin/approved-admins', {
+            const response = await axios.get('/api/MainAdmin/approved-admins', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -26,7 +26,7 @@ const AllAdmins = () => {
   const handleRemove = async (adminId) => {
     try {
       const token =JSON.parse(localStorage.getItem('authTokens')).accessToken;
-      await axios.delete(`https://localhost:7021/api/MainAdmin/remove-admin/${adminId}`, {
+      await axios.delete(`/api/MainAdmin/remove-admin/${adminId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

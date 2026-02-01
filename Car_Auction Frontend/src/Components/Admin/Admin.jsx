@@ -51,10 +51,10 @@ const Admin = () => {
       try {
         const adminId = user ? user.nameid : 11; // Using hardcoded admin ID for example
         console.log(adminId);
-        const activeAuctionsResponse = await axios.get(`https://localhost:7021/api/Bid/admin/${adminId}/active-auctions`);
+        const activeAuctionsResponse = await axios.get(`/api/Bid/admin/${adminId}/active-auctions`);
         setTotalAuctions(activeAuctionsResponse.data);  // Setting the fetched total auctions count
 
-        const activeUsersResponse = await axios.get(`https://localhost:7021/api/User/verified-users-count`);
+        const activeUsersResponse = await axios.get(`/api/User/verified-users-count`);
         setTotalUsers(activeUsersResponse.data);
         const mockData = generateMockData();
         setDashboardData(mockData);

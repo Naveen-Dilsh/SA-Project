@@ -59,7 +59,7 @@ const AddBid = ({ carData, onBidComplete }) => {
             };
             
             console.log('Submitting bid data:', formattedBidData);
-            await axios.post('https://localhost:7021/api/Bid', formattedBidData);
+            await axios.post('/api/Bid', formattedBidData);
             alert('Bid added successfully!');
             if (onBidComplete) {
                 onBidComplete();

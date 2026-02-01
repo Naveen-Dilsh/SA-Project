@@ -15,7 +15,7 @@ const AuctionHistoryPage = () => {
         if (!adminId) {
           throw new Error('Admin ID not available');
         }
-        const response = await fetch(`https://localhost:7021/api/Admin/history/${adminId}`);
+        const response = await fetch(`/api/Admin/history/${adminId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch auction history');
         }
