@@ -40,8 +40,10 @@ export const AuthProvider = ({children}) =>{
             } else {
                 navigate('/'); // Default route for regular users
             }
+            return { success: true, data: data };
         }else{
             alert("Invalid password or UserName!")
+            return { error: "Invalid password or Username" };
         }
     }
 
