@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./Car_Auction Backend
+      dockerfile: Dockerfile
+    container_name: car_auction_backend
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - "ConnectionStrings__DefaultConnection=Server=db;Database=CarAuctionDb5;User Id=sa;Password=YourStrong@Password123;TrustServerCertificate=True;MultipleActiveResultSets=true"
+      - "JWTSettings__Secret=YourVeryLongSecureSecretKeyThatIsAtLeast32CharactersLong" 
+      # You can override other settings here like SMTP or PayPal if needed
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    restart: always
+
+  frontend:
+    build:
+      context: ./Car_Auction Frontend
+      dockerfile: Dockerfile
+    container_name: car_auction_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: car_auction_db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=YourStrong@Password123
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_data:/var/opt/mssql
+    restart: always
+
+volumes:
+  mssql_data:
